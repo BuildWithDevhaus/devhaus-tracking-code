@@ -1,7 +1,3 @@
-import { greetUser } from '$utils/greet';
+import segmentTrackingCode from 'utils/segmentTrackingCode';
 
-window.Webflow ||= [];
-window.Webflow.push(() => {
-  const name = 'John Doe';
-  greetUser(name);
-});
+segmentTrackingCode();
