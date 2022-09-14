@@ -1,25 +1,41 @@
-# Finsweet Developer Starter
+# Devhaus Tracking Code
 
 A starter template for both Client & Power projects.
 
 Before starting to work with this template, please take some time to read through the documentation.
 
+## How to Install
+
+1. Put your Segment Tracking Code from Segment to the `<head>` of the page
+2. Put the code below in the footer of your page (before `<body>`)
+
+```html
+<script
+  defer
+  src="https://cdn.jsdelivr.net/gh/davisdevhaus/devhaus-tracking-code@0.1.0-alpha/dist/index.js"
+></script>
+```
+
 ## Reference
 
-- [Included tools](#included-tools)
-- [Requirements](#requirements)
-- [Getting started](#getting-started)
-  - [Installing](#installing)
-  - [Building](#building)
+- [Devhaus Tracking Code](#devhaus-tracking-code)
+  - [How to Install](#how-to-install)
+  - [Reference](#reference)
+  - [Included tools](#included-tools)
+  - [Requirements](#requirements)
+  - [Getting started](#getting-started)
+    - [Installing](#installing)
+    - [Building](#building)
     - [Serving files on development mode](#serving-files-on-development-mode)
     - [Building multiple files](#building-multiple-files)
     - [Setting up a path alias](#setting-up-a-path-alias)
-- [Contributing guide](#contributing-guide)
-- [Pre-defined scripts](#pre-defined-scripts)
-- [CI/CD](#cicd)
-  - [Continuous Integration](#continuous-integration)
-  - [Continuous Deployment](#continuous-deployment)
-  - [How to automatically deploy updates to npm](#how-to-automatically-deploy-updates-to-npm)
+  - [Testing](#testing)
+  - [Contributing guide](#contributing-guide)
+  - [Pre-defined scripts](#pre-defined-scripts)
+  - [CI/CD](#cicd)
+    - [Continuous Integration](#continuous-integration)
+    - [Continuous Deployment](#continuous-deployment)
+      - [How to automatically deploy updates to npm](#how-to-automatically-deploy-updates-to-npm)
 
 ## Included tools
 
