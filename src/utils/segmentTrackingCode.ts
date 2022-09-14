@@ -22,6 +22,8 @@ export default function segmentTrackingCode(isDev = false) {
     ): string | Number | Boolean | null | undefined => {
       if (propertyName === 'path') {
         return window.location.pathname;
+      } else if (propertyName === 'url') {
+        return window.location.href.split('?')['0'];
       } else if (/.+:.+/g.test(propertyName)) {
         const intendedName = propertyName.substring(0, propertyName.search(':'));
         const intendedValue = propertyName.substring(
@@ -35,6 +37,8 @@ export default function segmentTrackingCode(isDev = false) {
             return currentElement?.innerHTML;
           case 'innerHTML-parseInt':
             return parseInt(currentElement.innerHTML);
+          case 'url':
+            return window.location.href.split('?')[0];
           case 'boolean:true':
             return true;
           case 'boolean:false':
