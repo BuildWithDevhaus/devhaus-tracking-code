@@ -101,10 +101,10 @@ export default function segmentTrackingCode(isDev = false) {
             element.dataset?.['submitButton'] === 'true'
           ) {
             const form = element.closest('form');
-            const formElements = form?.elements;
-            for (let i = 0; i < formElements?.length!; i++) {
-              const formElement = formElements?.[i] as HTMLInputElement;
-              if (formElements?.[i] !== element) {
+            const formElements = (form?.elements as HTMLFormControlsCollection) ?? [];
+            [...formElements].forEach((fe) => {
+              const formElement = fe as HTMLInputElement;
+              if (formElement !== element) {
                 const name = formElement?.id.toLowerCase();
                 const value = formElement?.value;
                 const isPII = formElement?.dataset?.['identify'] === 'true';
@@ -121,7 +121,7 @@ export default function segmentTrackingCode(isDev = false) {
                   }
                 }
               }
-            }
+            });
           }
           //check if the element is a CMS element
           if (element.dataset?.['cms'] === 'true') {
