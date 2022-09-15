@@ -102,7 +102,7 @@ export default function segmentTrackingCode() {
             );
           } else break;
         }
-        element.addEventListener('click', () => {
+        const clickEvent = () => {
           if (
             (element.tagName === 'INPUT' && (element as HTMLInputElement).type === 'submit') ||
             element.dataset?.['submitButton'] === 'true'
@@ -147,7 +147,9 @@ export default function segmentTrackingCode() {
           if (Object.keys(identifyProperties).length > 0) {
             triggerSegmentIdentify(identifyProperties);
           }
-        });
+        };
+        element.addEventListener('click', clickEvent);
+        element.addEventListener('auxclick', clickEvent);
       }
     }
   });
