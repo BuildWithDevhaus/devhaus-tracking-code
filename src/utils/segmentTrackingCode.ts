@@ -2,8 +2,8 @@ import triggerSegmentEvent from './triggerSegmentEvent';
 import triggerSegmentIdentify from './triggerSegmentIdentify';
 
 // Segment
-export default function segmentTrackingCode(isDev = false) {
-  type GenericObject = { [key: string]: any };
+export default function segmentTrackingCode() {
+  type GenericObject = { [key: string]: unknown };
   const allSegmentElements = document.querySelectorAll('[data-segment-event]');
   const pageviewElements = document.querySelectorAll('[data-pageview-property-name]');
 
@@ -19,19 +19,22 @@ export default function segmentTrackingCode(isDev = false) {
       currentElement: HTMLElement,
       propertyName = '',
       propertyValue: string | null = null
-    ): string | Number | Boolean | null | undefined => {
+    ): string | number | boolean | null | undefined => {
       if (propertyName === 'path') {
         return window.location.pathname;
-      } else if (propertyName === 'url') {
+      }
+      if (propertyName === 'url') {
         return window.location.href.split('?')['0'];
-      } else if (/.+:.+/g.test(propertyName)) {
+      }
+      if (/.+:.+/g.test(propertyName)) {
         const intendedName = propertyName.substring(0, propertyName.search(':'));
         const intendedValue = propertyName.substring(
           propertyName.search(':') + 1,
           propertyName.length
         );
         return resolvePropertyValue(currentElement, intendedName, intendedValue);
-      } else if (propertyName) {
+      }
+      if (propertyName) {
         switch (propertyValue) {
           case 'innerHTML':
             return currentElement?.innerHTML;
@@ -60,7 +63,7 @@ export default function segmentTrackingCode(isDev = false) {
       //search scope is the whole Body
       const eventName = element.dataset['segmentEvent'];
 
-      let properties: GenericObject = {};
+      const properties: GenericObject = {};
       for (let i = 1; i <= 100; i++) {
         const propertyName = element.dataset?.['propertyName' + i];
         const propertyValue = element.dataset?.['propertyValue' + i];
@@ -82,11 +85,11 @@ export default function segmentTrackingCode(isDev = false) {
           propertyValue
         );
       });
-      triggerSegmentEvent(eventName, properties, isDev);
+      triggerSegmentEvent(eventName, properties);
     } else {
       const eventName = element.dataset['segmentEvent'];
-      let properties: GenericObject = {};
-      let identifyProperties: GenericObject = {};
+      const properties: GenericObject = {};
+      const identifyProperties: GenericObject = {};
       if (eventName) {
         for (let i = 1; i <= 100; i++) {
           const propertyName = element.dataset?.['propertyName' + i];
@@ -140,9 +143,9 @@ export default function segmentTrackingCode(isDev = false) {
               properties[resolvePropertyName(name)] = resolvePropertyValue(elem, name, value);
             }
           }
-          triggerSegmentEvent(eventName, properties, isDev);
+          triggerSegmentEvent(eventName, properties);
           if (Object.keys(identifyProperties).length > 0) {
-            triggerSegmentIdentify(identifyProperties, isDev);
+            triggerSegmentIdentify(identifyProperties);
           }
         });
       }

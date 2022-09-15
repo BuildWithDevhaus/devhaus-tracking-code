@@ -1,6 +1,6 @@
-export default function triggerSegmentIdentify(data = {}, isDev = false) {
+export default function triggerSegmentIdentify(data = {}) {
   if (window.analytics) {
-    if (isDev) console.log(`Segment - Identify`, data);
+    // if (isDev) console.log(`Segment - Identify`, data);
     window.analytics.identify(data);
   }
 }

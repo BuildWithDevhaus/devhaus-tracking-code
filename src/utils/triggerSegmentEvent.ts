@@ -1,6 +1,6 @@
 import getUTM from './getUTM';
 
-export default function triggerSegmentEvent(eventName = '', data = {}, isDev = false) {
+export default function triggerSegmentEvent(eventName = '', data = {}) {
   const dataSend = {
     ...data,
     metadata: {
@@ -10,9 +10,9 @@ export default function triggerSegmentEvent(eventName = '', data = {}, isDev = f
     },
   };
   if (window?.analytics) {
-    if (isDev) console.log(`Segment - ${eventName}`, dataSend);
+    // if (isDev) console.log(`Segment - ${eventName}`, dataSend);
     window?.analytics?.track(eventName, dataSend);
   } else {
-    console.log(`FAILED SEND TO SEGMENT: ${eventName}`);
+    //console.log(`FAILED SEND TO SEGMENT: ${eventName}`);
   }
 }

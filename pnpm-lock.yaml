@@ -8,8 +8,10 @@ specifiers:
   '@finsweet/tsconfig': ^1.1.0
   '@playwright/test': ^1.25.0
   '@trivago/prettier-plugin-sort-imports': ^3.3.0
+  '@types/cookie': ^0.5.1
   '@typescript-eslint/eslint-plugin': ^5.33.0
   '@typescript-eslint/parser': ^5.33.0
+  cookie: ^0.5.0
   cross-env: ^7.0.3
   esbuild: ^0.15.1
   eslint: ^8.21.0
@@ -20,6 +22,7 @@ specifiers:
 
 dependencies:
   '@finsweet/ts-utils': 0.33.1
+  cookie: 0.5.0
 
 devDependencies:
   '@changesets/changelog-git': 0.1.12
@@ -28,6 +31,7 @@ devDependencies:
   '@finsweet/tsconfig': 1.1.0
   '@playwright/test': 1.25.0
   '@trivago/prettier-plugin-sort-imports': 3.3.0_prettier@2.7.1
+  '@types/cookie': 0.5.1
   '@typescript-eslint/eslint-plugin': 5.33.0_njno5y7ry2l2lcmiu4tywxkwnq
   '@typescript-eslint/parser': 5.33.0_qugx7qdu5zevzvxaiqyxfiwquq
   cross-env: 7.0.3
@@ -652,6 +656,10 @@ packages:
       - supports-color
     dev: true
 
+  /@types/cookie/0.5.1:
+    resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
+    dev: true
+
   /@types/is-ci/3.0.0:
     resolution: {integrity: sha512-Q0Op0hdWbYd1iahB+IFNQcWXFq4O0Q5MwQP7uN0souuQ4rPg1vEYcnIOfr1gY+M+6rc8FGoRaBO1mOOvL29sEQ==}
     dependencies:
@@ -1033,6 +1041,11 @@ packages:
     dependencies:
       safe-buffer: 5.1.2
     dev: true
+
+  /cookie/0.5.0:
+    resolution: {integrity: sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==}
+    engines: {node: '>= 0.6'}
+    dev: false
 
   /cross-env/7.0.3:
     resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
