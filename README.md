@@ -7,7 +7,7 @@ Before starting to work with this template, please take some time to read throug
 ## How to Install
 
 1. Put your Segment Tracking Code from Segment to the `<head>` of the page
-2. Put the code below in the footer of your page (before `<body>`)
+2. Put the code below also in '<head>' after the Segment Tracking Code:
 
 ```html
 <script
