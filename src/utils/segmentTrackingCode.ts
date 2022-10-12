@@ -34,6 +34,8 @@ export default function segmentTrackingCode() {
         );
         return resolvePropertyValue(currentElement, intendedName, intendedValue);
       }
+      //if propertyname has 'array:' inside, convert things inside into an array
+      //example: array[{propertyName1: propertyValue1, propertyName2: propertyValue2}, {propertyName1: propertyValue1, propertyName2: propertyValue2}]
       if (propertyName) {
         switch (propertyValue) {
           case 'innerHTML':
@@ -62,28 +64,45 @@ export default function segmentTrackingCode() {
       //for "PAGEVIEW" or "xxxx Viewed" events
       //search scope is the whole Body
       const eventName = element.dataset['segmentEvent'];
-
       const properties: GenericObject = {};
       for (let i = 1; i <= 100; i++) {
         const propertyName = element.dataset?.['propertyName' + i];
         const propertyValue = element.dataset?.['propertyValue' + i];
-        if (propertyName)
+        if (propertyName) {
           properties[resolvePropertyName(propertyName)] = resolvePropertyValue(
             element,
             propertyName,
             propertyValue
           );
-        else break;
+        } else break;
       }
       pageviewElements.forEach((pel) => {
         const pageviewElement = pel as HTMLElement;
         const propertyName = pageviewElement.dataset?.['pageviewPropertyName'];
         const propertyValue = pageviewElement.dataset?.['pageviewPropertyValue'] ?? 'innerHTML';
-        properties[resolvePropertyName(propertyName)] = resolvePropertyValue(
-          pageviewElement,
-          propertyName,
-          propertyValue
-        );
+        const resolvedPropertyName = resolvePropertyName(propertyName);
+
+        if (properties[resolvePropertyName(propertyName)]) {
+          //if property is an array, push to it
+          const arr = properties[resolvedPropertyName];
+          if (typeof arr === 'string') {
+            properties[resolvedPropertyName] = [
+              arr as string,
+              resolvePropertyValue(pageviewElement, propertyName, propertyValue),
+            ];
+          } else if (Array.isArray(arr)) {
+            properties[resolvedPropertyName] = [
+              ...(arr as string[]),
+              resolvePropertyValue(pageviewElement, propertyName, propertyValue),
+            ];
+          }
+        } else {
+          properties[resolvePropertyName(propertyName)] = resolvePropertyValue(
+            pageviewElement,
+            propertyName,
+            propertyValue
+          );
+        }
       });
       triggerSegmentEvent(eventName, properties);
     } else {
