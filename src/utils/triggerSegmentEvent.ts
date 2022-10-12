@@ -10,7 +10,7 @@ export default function triggerSegmentEvent(eventName = '', data = {}) {
     },
   };
   if (window?.analytics) {
-    //console.log(`Segment - ${eventName}`, dataSend);
+    console.log(`Segment - ${eventName}`, dataSend);
     window?.analytics?.track(eventName, dataSend);
   } else {
     //console.log(`FAILED SEND TO SEGMENT: ${eventName}`);

@@ -97,11 +97,17 @@ export default function segmentTrackingCode() {
             ];
           }
         } else {
-          properties[resolvePropertyName(propertyName)] = resolvePropertyValue(
-            pageviewElement,
-            propertyName,
-            propertyValue
-          );
+          if (pageviewElement.getAttribute('data-multi-reference') === 'true') {
+            properties[resolvedPropertyName] = [
+              resolvePropertyValue(pageviewElement, propertyName, propertyValue),
+            ];
+          } else {
+            properties[resolvePropertyName(propertyName)] = resolvePropertyValue(
+              pageviewElement,
+              propertyName,
+              propertyValue
+            );
+          }
         }
       });
       triggerSegmentEvent(eventName, properties);
