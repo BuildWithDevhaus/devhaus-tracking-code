@@ -6,6 +6,6 @@
  * MIT Licensed
  */
 /**
- * v1.0.2
+ * v1.0.3
  * Copyright (c) 2022, Barjuan Davis - Devhaus Pte Ltd
  */
