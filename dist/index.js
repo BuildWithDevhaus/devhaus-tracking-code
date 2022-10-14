@@ -7,5 +7,5 @@
  */
 /**
  * v1.0.2
- * Copyright (c) 2022 Devhaus Pte Ltd
+ * Copyright (c) 2022, Barjuan Davis - Devhaus Pte Ltd
  */
