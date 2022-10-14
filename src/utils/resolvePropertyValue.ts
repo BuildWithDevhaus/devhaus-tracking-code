@@ -41,6 +41,13 @@ export const resolvePropertyValue = (
           pageviewElemValue,
           pageviewArray
         );
+      case 'grabAHref':
+        let grabbedAHrefElem = currentElement?.getAttribute('href');
+        //remove params from the url
+        if (grabbedAHrefElem?.includes('?')) {
+          grabbedAHrefElem = grabbedAHrefElem?.split('?')[0];
+        }
+        return grabbedAHrefElem ?? currentElement?.innerHTML ?? '';
       default:
         return propertyValue;
     }

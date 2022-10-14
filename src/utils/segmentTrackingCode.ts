@@ -14,8 +14,6 @@ export default function segmentTrackingCode() {
     const element = el as HTMLElement;
 
     if (element.tagName === 'BODY') {
-      //for "PAGEVIEW" or "xxxx Viewed" events
-      //search scope is the whole Body
       const eventName = element.dataset['segmentEvent'];
       const properties: GenericObject = {};
       for (let i = 1; i <= 100; i++) {
@@ -37,7 +35,6 @@ export default function segmentTrackingCode() {
         const resolvedPropertyName = resolvePropertyName(propertyName);
 
         if (properties[resolvePropertyName(propertyName)]) {
-          //if property is an array, push to it
           const arr = properties[resolvedPropertyName];
           if (typeof arr === 'string') {
             properties[resolvedPropertyName] = [
