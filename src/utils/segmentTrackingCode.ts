@@ -1,3 +1,5 @@
+import { resolvePropertyName } from './resolvePropertyName';
+import { resolvePropertyValue } from './resolvePropertyValue';
 import triggerSegmentEvent from './triggerSegmentEvent';
 import triggerSegmentIdentify from './triggerSegmentIdentify';
 
@@ -7,59 +9,10 @@ export default function segmentTrackingCode() {
   const allSegmentElements = document.querySelectorAll('[data-segment-event]');
   const pageviewElements = document.querySelectorAll('[data-pageview-property-name]');
 
-  const pageviewArray = Array.from(pageviewElements);
+  const pageviewArray = Array.from(pageviewElements) as HTMLElement[];
   allSegmentElements.forEach((el) => {
     const element = el as HTMLElement;
-    const resolvePropertyName = (propertyName = '') => {
-      return /.+:.+/g.test(propertyName)
-        ? propertyName.substring(0, propertyName.search(':'))
-        : propertyName;
-    };
-    const resolvePropertyValue = (
-      currentElement: HTMLElement,
-      propertyName = '',
-      propertyValue: string | null = null
-    ): string | number | boolean | null | undefined => {
-      if (propertyName === 'path') {
-        return window.location.pathname;
-      }
-      if (propertyName === 'url') {
-        return window.location.href.split('?')['0'];
-      }
-      if (/.+:.+/g.test(propertyName)) {
-        const intendedName = propertyName.substring(0, propertyName.search(':'));
-        const intendedValue = propertyName.substring(
-          propertyName.search(':') + 1,
-          propertyName.length
-        );
-        return resolvePropertyValue(currentElement, intendedName, intendedValue);
-      }
-      //if propertyname has 'array:' inside, convert things inside into an array
-      //example: array[{propertyName1: propertyValue1, propertyName2: propertyValue2}, {propertyName1: propertyValue1, propertyName2: propertyValue2}]
-      if (propertyName) {
-        switch (propertyValue) {
-          case 'innerHTML':
-            return currentElement?.innerHTML;
-          case 'innerHTML-parseInt':
-            return parseInt(currentElement.innerHTML);
-          case 'url':
-            return window.location.href.split('?')[0];
-          case 'boolean:true':
-            return true;
-          case 'boolean:false':
-            return false;
-          case 'grabPageview':
-            const grabbedPageviewElem = pageviewArray.find(
-              (elem) => (elem as HTMLElement)?.dataset?.['pageviewPropertyName'] === propertyName
-            ) as HTMLElement;
-            const pageviewElemValue =
-              grabbedPageviewElem?.dataset?.['pageviewPropertyValue'] ?? 'innerHTML';
-            return resolvePropertyValue(grabbedPageviewElem, propertyName, pageviewElemValue);
-          default:
-            return propertyValue;
-        }
-      }
-    };
+
     if (element.tagName === 'BODY') {
       //for "PAGEVIEW" or "xxxx Viewed" events
       //search scope is the whole Body
@@ -72,7 +25,8 @@ export default function segmentTrackingCode() {
           properties[resolvePropertyName(propertyName)] = resolvePropertyValue(
             element,
             propertyName,
-            propertyValue
+            propertyValue,
+            pageviewArray
           );
         } else break;
       }
@@ -88,24 +42,25 @@ export default function segmentTrackingCode() {
           if (typeof arr === 'string') {
             properties[resolvedPropertyName] = [
               arr as string,
-              resolvePropertyValue(pageviewElement, propertyName, propertyValue),
+              resolvePropertyValue(pageviewElement, propertyName, propertyValue, pageviewArray),
             ];
           } else if (Array.isArray(arr)) {
             properties[resolvedPropertyName] = [
               ...(arr as string[]),
-              resolvePropertyValue(pageviewElement, propertyName, propertyValue),
+              resolvePropertyValue(pageviewElement, propertyName, propertyValue, pageviewArray),
             ];
           }
         } else {
           if (pageviewElement.getAttribute('data-multi-reference') === 'true') {
             properties[resolvedPropertyName] = [
-              resolvePropertyValue(pageviewElement, propertyName, propertyValue),
+              resolvePropertyValue(pageviewElement, propertyName, propertyValue, pageviewArray),
             ];
           } else {
             properties[resolvePropertyName(propertyName)] = resolvePropertyValue(
               pageviewElement,
               propertyName,
-              propertyValue
+              propertyValue,
+              pageviewArray
             );
           }
         }
@@ -123,7 +78,8 @@ export default function segmentTrackingCode() {
             properties[resolvePropertyName(propertyName)] = resolvePropertyValue(
               element,
               propertyName,
-              propertyValue
+              propertyValue,
+              pageviewArray
             );
           } else break;
         }
@@ -165,7 +121,12 @@ export default function segmentTrackingCode() {
 
               const name = elem.dataset?.['propertyName'];
               const value = elem.dataset?.['propertyValue'] ?? 'innerHTML';
-              properties[resolvePropertyName(name)] = resolvePropertyValue(elem, name, value);
+              properties[resolvePropertyName(name)] = resolvePropertyValue(
+                elem,
+                name,
+                value,
+                pageviewArray
+              );
             }
           }
           triggerSegmentEvent(eventName, properties);
