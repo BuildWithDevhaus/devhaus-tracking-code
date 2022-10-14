@@ -6,6 +6,6 @@
  * MIT Licensed
  */
 /**
- * v1.0.3
+ * v1.0.2
  * Copyright (c) 2022 Devhaus Pte Ltd
  */
