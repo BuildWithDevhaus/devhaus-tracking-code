@@ -12,7 +12,7 @@ Before starting to work with this template, please take some time to read throug
 ```html
 <script
   defer
-  src="https://cdn.jsdelivr.net/gh/davisdevhaus/devhaus-tracking-code@0/dist/index.js"
+  src="https://cdn.jsdelivr.net/gh/davisdevhaus/devhaus-tracking-code@1/dist/index.js"
 ></script>
 ```
 
