@@ -12,7 +12,6 @@ export default function segmentTrackingCode() {
   const pageviewArray = Array.from(pageviewElements) as HTMLElement[];
   allSegmentElements.forEach((el) => {
     const element = el as HTMLElement;
-
     if (element.tagName === 'BODY') {
       const eventName = element.dataset['segmentEvent'];
       const properties: GenericObject = {};

@@ -1,6 +1,8 @@
 import getUTM from './getUTM';
+import triggerIdentifyGeo from './triggerIdentifyGeo';
 
 export default function triggerSegmentEvent(eventName = '', data = {}) {
+  triggerIdentifyGeo();
   const dataSend = {
     ...data,
     metadata: {
@@ -13,6 +15,6 @@ export default function triggerSegmentEvent(eventName = '', data = {}) {
     //console.log(`Segment - ${eventName}`, dataSend);
     window?.analytics?.track(eventName, dataSend);
   } else {
-    //console.log(`FAILED SEND TO SEGMENT: ${eventName}`);
+    //console.log(`Segment - ${eventName}`, dataSend);
   }
 }

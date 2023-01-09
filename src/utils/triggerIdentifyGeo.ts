@@ -1,7 +1,5 @@
-import triggerIdentifyGeo from './triggerIdentifyGeo';
-
-export default function triggerSegmentIdentify(data = {}) {
-  triggerIdentifyGeo();
+export default async function triggerIdentifyGeo() {
+  const data = await fetch('https://ipapi.co/json/').then((res) => res.json());
   if (window.analytics) {
     // if (isDev) console.log(`Segment - Identify`, data);
     window.analytics.identify(data);
