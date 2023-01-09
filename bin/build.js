@@ -18,6 +18,7 @@ const defaultSettings = {
   sourcemap: !production,
   target: production ? 'es2017' : 'esnext',
   entryPoints,
+  footer: 'Copyright (c) 2023 Devhaus Pte Ltd',
 };
 
 // Files building
