@@ -1,4 +1,4 @@
-import segmentTrackingCode from 'utils/segmentTrackingCode';
+import segmentTrackingCode from 'segmentTrackingCode';
 
-//hello jsdelivr!
 segmentTrackingCode();
+window.addEventListener('load', jotformTrackingCode);
