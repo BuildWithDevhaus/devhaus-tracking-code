@@ -47,7 +47,8 @@ export default function jotformTrackingCode() {
               putData();
             } else if (
               input.getAttribute('type') !== 'checkbox' &&
-              input.getAttribute('type') !== 'radio'
+              input.getAttribute('type') !== 'radio' &&
+              input.getAttribute('type') !== 'file'
             ) {
               putData();
             }
