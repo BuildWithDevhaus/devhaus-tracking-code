@@ -1,3 +1,4 @@
+import jotformTrackingCode from 'jotformTrackingCode';
 import segmentTrackingCode from 'segmentTrackingCode';
 
 segmentTrackingCode();

@@ -11,8 +11,8 @@ export default function triggerSegmentEvent(eventName = '', data = {}) {
       utm_campaign: getUTM('utm_campaign'),
     },
   };
+  //console.log(`Segment - ${eventName}`, dataSend);
   if (window?.analytics) {
-    //console.log(`Segment - ${eventName}`, dataSend);
     window?.analytics?.track(eventName, dataSend);
   } else {
     //console.log(`Segment - ${eventName}`, dataSend);
