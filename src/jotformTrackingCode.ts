@@ -25,7 +25,8 @@ export default function jotformTrackingCode() {
             const nameArray = name.split('_');
             nameArray.shift();
             const nameStringTemp = nameArray.join('_');
-            const nameString = nameStringTemp.replace(/\[\]$/, '');
+            const nameStringTemp2 = nameStringTemp.replace(/\[\]$/, '');
+            const nameString = nameStringTemp2.toLowerCase();
 
             if (data[nameString]) {
               if (typeof data[nameString] === 'string') {
