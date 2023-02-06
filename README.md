@@ -1,31 +1,49 @@
 # Devhaus Tracking Code
 
-A starter template for both Client & Power projects.
+Devhaus Tracking Code is a helper code snippet that helps Webflow developers mainly to implement [Segment](https://segment.com/) events and send them to multiple destinations (e.g. Google Analytics, Facebook Pixel, etc.) without having to write any code. It also supports [Google Analytics 4](https://analytics.google.com) if the client opts out to track events without Segment in place.
 
-Before starting to work with this template, please take some time to read through the documentation.
+## Table of Contents
+
+- [Devhaus Tracking Code](#devhaus-tracking-code)
+  - [Table of Contents](#table-of-contents)
+  - [How to Install](#how-to-install)
+    - [Enable Google Analytics Support (bypassing Segment)](#enable-google-analytics-support-bypassing-segment)
+  - [Included tools](#included-tools)
+  - [Requirements](#requirements)
+    - [Installing](#installing)
+    - [Building](#building)
+    - [Building multiple files](#building-multiple-files)
+    - [Setting up a path alias](#setting-up-a-path-alias)
+  - [Testing](#testing)
+    - [Serving files on development mode](#serving-files-on-development-mode)
+  - [Contributing guide](#contributing-guide)
+  - [Pre-defined scripts](#pre-defined-scripts)
+  - [CI/CD](#cicd)
+    - [Continuous Integration](#continuous-integration)
+    - [Continuous Deployment](#continuous-deployment)
+      - [How to automatically deploy updates to npm](#how-to-automatically-deploy-updates-to-npm)
 
 ## How to Install
 
-1. Put your Segment Tracking Code from Segment to the `<head>` of the page
-2. Put the code below also in `<head>` after the Segment Tracking Code:
+1. Put your `analytics.js` snippet from Segment to the `<head>` of the page
+2. **_(Optional) It is highly recommended_** that you modify your `analytics.js` file to include a staging source and a production source. This will allow you to test your events in staging before sending them to production. To do this, you need to add the following and **replace to the `analytics.load()` call with the following**:
+
+```js
+if (window.location.hostname.includes('webflow.io')) {
+  analytics.load('YOUR_STAGING_SOURCE_WRITE_KEY');
+} else {
+  analytics.load('YOUR_PRODUCTION_SOURCE_WRITE_KEY');
+}
+```
+
+3. Put the code below also in `<head>` after the `analytics.js` snippet; this is the Devhaus Tracking Code snippet:
 
 ```html
 <script
   id="devhaus-tracking-code"
   defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@1.3/dist/index.js"
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.0/dist/index.js"
 ></script>
-```
-
-### Serving files on development mode
-
-When you run `pnpm dev`, two things happen:
-
-- esbuild is set to `watch` mode. Every time that you save your files, the project will be rebuilt.
-- A local server is created under `http://localhost:3000` that serves all your project files. You can import them in your Webflow projects like:
-
-```html
-<script id="devhaus-tracking-code" defer src="http://localhost:3000/index.js"></script>
 ```
 
 ### Enable Google Analytics Support (bypassing Segment)
@@ -36,31 +54,23 @@ To enable Google Analytics support, you need to add the `ga4` **attribute** and 
 <script
   id="devhaus-tracking-code"
   defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@1.3/dist/index.js"
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.0/dist/index.js"
   ga4="G-XXXXXXXXXX"
 ></script>
 ```
 
-## Reference
+To enable GA4 DebugView, you need to add the `ga4-debug-mode` **attribute** and put `true` as the value:
+**NOTE: This feature is unstable and may not work as expected.**
 
-- [Devhaus Tracking Code](#devhaus-tracking-code)
-  - [How to Install](#how-to-install)
-    - [Serving files on development mode](#serving-files-on-development-mode)
-    - [Enable Google Analytics Support (bypassing Segment)](#enable-google-analytics-support-bypassing-segment)
-  - [Reference](#reference)
-  - [Included tools](#included-tools)
-  - [Requirements](#requirements)
-    - [Installing](#installing)
-    - [Building](#building)
-    - [Building multiple files](#building-multiple-files)
-    - [Setting up a path alias](#setting-up-a-path-alias)
-  - [Testing](#testing)
-  - [Contributing guide](#contributing-guide)
-  - [Pre-defined scripts](#pre-defined-scripts)
-  - [CI/CD](#cicd)
-    - [Continuous Integration](#continuous-integration)
-    - [Continuous Deployment](#continuous-deployment)
-      - [How to automatically deploy updates to npm](#how-to-automatically-deploy-updates-to-npm)
+```html
+<script
+  id="devhaus-tracking-code"
+  defer
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.0/dist/index.js"
+  ga4="G-XXXXXXXXXX"
+  ga4-debug-mode="true"
+></script>
+```
 
 ## Included tools
 
@@ -169,6 +179,19 @@ You can disable this behavior in the `playwright.config.ts` file.
 
 If you project doesn't require any testing, you should disable the Tests job in the [CI workflow](#continuous-integration) by commenting it out in the `.github/workflows/ci.yml` file.
 This will prevent the tests from running when you open a Pull Request.
+
+### Serving files on development mode
+
+When you run `pnpm dev`, two things happen:
+
+- esbuild is set to `watch` mode. Every time that you save your files, the project will be rebuilt.
+- A local server is created under `http://localhost:3000` that serves all your project files. You can import them in your Webflow projects like so:
+
+```html
+<script id="devhaus-tracking-code" defer src="http://localhost:3000/index.js"></script>
+```
+
+- Every time that you save your files, the local version of Devhaus Tracking Code will be rebuilt and the local server will be updated.
 
 ## Contributing guide
 
