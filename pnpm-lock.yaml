@@ -9,6 +9,7 @@ specifiers:
   '@playwright/test': ^1.25.0
   '@trivago/prettier-plugin-sort-imports': ^3.3.0
   '@types/cookie': ^0.5.1
+  '@types/gtag.js': ^0.0.12
   '@typescript-eslint/eslint-plugin': ^5.33.0
   '@typescript-eslint/parser': ^5.33.0
   cookie: ^0.5.0
@@ -32,6 +33,7 @@ devDependencies:
   '@playwright/test': 1.25.0
   '@trivago/prettier-plugin-sort-imports': 3.3.0_prettier@2.7.1
   '@types/cookie': 0.5.1
+  '@types/gtag.js': 0.0.12
   '@typescript-eslint/eslint-plugin': 5.33.0_njno5y7ry2l2lcmiu4tywxkwnq
   '@typescript-eslint/parser': 5.33.0_qugx7qdu5zevzvxaiqyxfiwquq
   cross-env: 7.0.3
@@ -658,6 +660,10 @@ packages:
 
   /@types/cookie/0.5.1:
     resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
+    dev: true
+
+  /@types/gtag.js/0.0.12:
+    resolution: {integrity: sha512-YQV9bUsemkzG81Ea295/nF/5GijnD2Af7QhEofh7xu+kvCN6RdodgNwwGWXB5GMI3NoyvQo0odNctoH/qLMIpg==}
     dev: true
 
   /@types/is-ci/3.0.0:

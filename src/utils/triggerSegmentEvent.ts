@@ -13,7 +13,7 @@ export default function triggerSegmentEvent(eventName = '', data = {}) {
     },
   };
   //console.log(`Segment - ${eventName}`, dataSend);
-  triggerGA4Event(eventName, dataSend);
+  triggerGA4Event(eventName, data);
 
   if (window?.analytics) {
     window?.analytics?.track(eventName, dataSend);
