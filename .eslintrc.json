@@ -1,6 +1,7 @@
 {
   "extends": ["@finsweet"],
   "rules": {
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "prefer-rest-params": "off"
   }
 }

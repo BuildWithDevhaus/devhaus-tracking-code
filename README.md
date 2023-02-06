@@ -11,8 +11,33 @@ Before starting to work with this template, please take some time to read throug
 
 ```html
 <script
+  id="devhaus-tracking-code"
   defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@1.2.2/dist/index.js"
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@1.3/dist/index.js"
+></script>
+```
+
+### Serving files on development mode
+
+When you run `pnpm dev`, two things happen:
+
+- esbuild is set to `watch` mode. Every time that you save your files, the project will be rebuilt.
+- A local server is created under `http://localhost:3000` that serves all your project files. You can import them in your Webflow projects like:
+
+```html
+<script id="devhaus-tracking-code" defer src="http://localhost:3000/index.js"></script>
+```
+
+### Enable Google Analytics Support (bypassing Segment)
+
+To enable Google Analytics support, you need to add the `ga4` **attribute** and put your measurement ID as the value:
+
+```html
+<script
+  id="devhaus-tracking-code"
+  defer
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@1.3/dist/index.js"
+  ga4="G-XXXXXXXXXX"
 ></script>
 ```
 
@@ -20,13 +45,13 @@ Before starting to work with this template, please take some time to read throug
 
 - [Devhaus Tracking Code](#devhaus-tracking-code)
   - [How to Install](#how-to-install)
+    - [Serving files on development mode](#serving-files-on-development-mode)
+    - [Enable Google Analytics Support (bypassing Segment)](#enable-google-analytics-support-bypassing-segment)
   - [Reference](#reference)
   - [Included tools](#included-tools)
   - [Requirements](#requirements)
-  - [Getting started](#getting-started)
     - [Installing](#installing)
     - [Building](#building)
-    - [Serving files on development mode](#serving-files-on-development-mode)
     - [Building multiple files](#building-multiple-files)
     - [Setting up a path alias](#setting-up-a-path-alias)
   - [Testing](#testing)
@@ -59,12 +84,6 @@ npm i -g pnpm
 
 To enable automatic deployments to npm, please read the [Continuous Deployment](#continuous-deployment) section.
 
-## Getting started
-
-The quickest way to start developing a new project is by [creating a new repository from this template](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template).
-
-Once the new repository has been created, update the `package.json` file with the correct information, specially the name of the package which has to be unique.
-
 ### Installing
 
 After creating the new repository, open it in your terminal and install the packages by running:
@@ -92,17 +111,6 @@ To build the files, you have two defined scripts:
 
 - `pnpm dev`: Builds and creates a local server that serves all files (check [Serving files on development mode](#serving-files-on-development-mode) for more info).
 - `pnpm build`: Builds to the production directory (`dist`).
-
-### Serving files on development mode
-
-When you run `pnpm dev`, two things happen:
-
-- esbuild is set to `watch` mode. Every time that you save your files, the project will be rebuilt.
-- A local server is created under `http://localhost:3000` that serves all your project files. You can import them in your Webflow projects like:
-
-```html
-<script defer src="http://localhost:3000/{FILE_PATH}.js"></script>
-```
 
 ### Building multiple files
 

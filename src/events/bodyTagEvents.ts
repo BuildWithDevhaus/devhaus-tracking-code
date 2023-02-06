@@ -4,9 +4,13 @@ import { resolvePropertyName } from '../utils/resolvePropertyName';
 import { resolvePropertyValue } from '../utils/resolvePropertyValue';
 import triggerSegmentEvent from '../utils/triggerSegmentEvent';
 
-export default function bodyTagEvents(element: HTMLElement, pageviewElements: NodeListOf<Element>) {
+export default function bodyTagEvents(
+  eventName: string,
+  element: HTMLElement,
+  pageviewElements: NodeListOf<Element>
+) {
   const pageviewArray = Array.from(pageviewElements) as HTMLElement[];
-  const eventName = element.dataset['segmentEvent'];
+  //const eventName = element.dataset['segmentEvent'];
   const properties: GenericObject = {};
   for (let i = 1; i <= 100; i++) {
     const propertyName = element.dataset?.['propertyName' + i];

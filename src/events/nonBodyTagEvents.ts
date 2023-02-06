@@ -8,11 +8,12 @@ import cmsElementEvent from './cmsElementEvents';
 import formSubmitEvent from './formSubmitEvents';
 
 export default function nonBodyTagEvents(
+  eventName: string,
   element: HTMLElement,
   pageviewElements: NodeListOf<Element>
 ) {
   const pageviewArray = Array.from(pageviewElements) as HTMLElement[];
-  const eventName = element.dataset['segmentEvent'];
+  //const eventName = element.dataset['segmentEvent'];
   const properties: GenericObject = {};
   const identifyProperties: GenericObject = {};
   if (eventName) {
