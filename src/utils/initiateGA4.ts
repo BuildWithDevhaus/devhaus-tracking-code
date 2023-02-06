@@ -1,3 +1,5 @@
+import gtag from './gtag';
+
 export default function initiateGA4() {
   const scriptTag = document.querySelector('#devhaus-tracking-code') as HTMLScriptElement;
   //check if scriptTag has "enable-ga4" attribute
@@ -10,9 +12,7 @@ export default function initiateGA4() {
       document.head.appendChild(gtagScript);
       //create a gtag function
       window.dataLayer = window.dataLayer || [];
-      function gtag(...args: any[]) {
-        window.dataLayer.push(args);
-      }
+
       gtag('js', new Date());
       gtag('config', ga4MeasurementId);
       //console.log('GA4 is enabled!');

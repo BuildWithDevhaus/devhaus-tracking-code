@@ -7,7 +7,6 @@ import nonBodyTagEvents from './events/nonBodyTagEvents';
 export default function segmentTrackingCode() {
   const allSegmentElements = document.querySelectorAll('[data-segment-event]');
   const pageviewElements = document.querySelectorAll('[data-pageview-property-name]');
-
   initiateGA4();
   allSegmentElements.forEach((el) => {
     const element = el as HTMLElement;
