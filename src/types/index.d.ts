@@ -6,5 +6,6 @@ declare global {
     Webflow: any;
     dataLayer: any;
     consentManagerConfig: any;
+    consentManager: any;
   }
 }
