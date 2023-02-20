@@ -1,6 +1,3 @@
-import inEU from '@segment/in-eu';
-import cookie from 'cookie';
-
 import getCorrectWriteKey from './getCorrectWriteKey';
 
 export default function loadConsentManager(
@@ -8,61 +5,87 @@ export default function loadConsentManager(
   alwaysRequireConsent: 'true' | 'false' | 'eu' = 'eu',
   devWriteKey?: string
 ) {
-  if (alwaysRequireConsent === 'eu' || alwaysRequireConsent === 'true') {
-    //check if there is any script tag that has src includes consent-manager.js
-    const consentManagerScript = document.querySelector('script[src*="consent-manager.js"]');
-    if (!consentManagerScript) {
-      console.error('Consent Manager script not found');
-      return;
-    }
-  }
-
+  // if (alwaysRequireConsent === 'eu' || alwaysRequireConsent === 'true') {
+  //   //check if there is any script tag that has src includes consent-manager.js
+  //   const consentManagerScript = document.querySelector('script[src*="consent-manager.js"]');
+  //   if (!consentManagerScript) {
+  //     console.error('Consent Manager script not found');
+  //     return;
+  //   }
+  // }
   window.consentManagerConfig = function (exports) {
+    let inEU, React;
     try {
       //somehow the exports returns undefined but somehow if I wrap it in a try block it works???
       exports.preferences.onPreferencesSaved(function () {
-        // console.log('preferences saved');
-        const consentManagerBanner = document.getElementById('consent-manager-banner');
-        if (consentManagerBanner) {
-          consentManagerBanner.classList.add('hidden');
-        }
+        console.log('preferences saved');
       });
+      React = exports.React;
+      inEU = exports.inEU;
     } finally {
+      //Banner Preferences
+      const devhausTrackingCode = document.getElementById('devhaus-tracking-code');
+      const bannerColor =
+        devhausTrackingCode?.getAttribute('consent-banner-color') ?? 'rgba(0,0,0,0)';
+      const bannerTextColor =
+        devhausTrackingCode?.getAttribute('consent-banner-text-color') ?? '#ffffff';
+
+      const bannerContentText =
+        devhausTrackingCode?.getAttribute('consent-banner-content') ??
+        'We use cookies to improve your experience.';
+      const bannerContent = React.createElement(
+        'span',
+        { className: 'consent-banner-content' },
+        bannerContentText
+      );
+      const bannerSubContentText =
+        devhausTrackingCode?.getAttribute('consent-banner-sub-content') ??
+        'You can change your preferences at any time.';
+      const bannerSubContent = React.createElement(
+        'span',
+        { className: 'consent-banner-sub-content' },
+        bannerSubContentText
+      );
+
       return {
         container: '#consent-manager',
-        writeKey: getCorrectWriteKey(prodWriteKey, undefined, devWriteKey),
-        bannerContent: 'We use cookies to improve your browsing experience.',
-        bannerSubContent: 'You can change your preferences at any time.',
+        writeKey: getCorrectWriteKey(prodWriteKey, prodWriteKey, devWriteKey),
+        bannerContent: bannerContent,
+        bannerSubContent: bannerSubContent,
         preferencesDialogTitle: 'Website Data Collection Preferences',
+        bannerTextColor: bannerTextColor,
+        bannerBackgroundColor: bannerColor,
         preferencesDialogContent:
           'We use data collected by cookies and JavaScript libraries to improve your browsing experience, analyze site traffic, deliver personalized advertisements, and increase the overall performance of our site.',
         cancelDialogTitle: 'Are you sure you want to cancel?',
         cancelDialogContent:
           "Your preferences have not been saved. By continuing to use our website, you're agreeing to our Website Data Collection Policy",
         closeBehavior: 'accept',
+        initialPreferences: {
+          marketingAndAnalytics: true,
+          advertising: true,
+          functional: true,
+        },
         shouldRequireConsent: () =>
-          alwaysRequireConsent === 'true' || (alwaysRequireConsent === 'eu' && inEU),
+          alwaysRequireConsent === 'true' || (alwaysRequireConsent === 'eu' && inEU()),
       };
     }
   };
 
-  const consentManagerBanner = document.getElementById('consent-manager-banner');
+  //load consent manager script
+  const consentManagerScript = document.createElement('script');
+  consentManagerScript.defer = true;
+  consentManagerScript.src =
+    'https://unpkg.com/@segment/consent-manager@5.7.0/standalone/consent-manager.js';
+  document.body.appendChild(consentManagerScript);
+
   const buttonConsentManager = document.getElementById('open-consent-manager');
-  if (!consentManagerBanner || !buttonConsentManager) {
+  if (!buttonConsentManager) {
     console.error(
-      "#consent-manager-banner or #open-consent-manager doesn't exist. Please update your Webflow project."
+      "#open-consent-manager Button doesn't exist. Please update your Webflow project."
     );
   }
 
-  const cookies = cookie.parse(document.cookie);
-  const consentCookie = cookies['tracking-preferences'];
-  if (
-    window.consentManagerConfig().shouldRequireConsent() &&
-    !consentCookie &&
-    consentManagerBanner?.classList.contains('hidden')
-  ) {
-    consentManagerBanner?.classList.remove('hidden');
-  }
   const openConsentManager = function () {
     window.consentManager.openConsentManager();
   };

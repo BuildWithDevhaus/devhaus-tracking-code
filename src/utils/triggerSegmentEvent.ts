@@ -3,7 +3,7 @@ import triggerGA4Event from './triggerGA4Event';
 import triggerIdentifyGeo from './triggerIdentifyGeo';
 
 export default function triggerSegmentEvent(eventName = '', data = {}) {
-  triggerIdentifyGeo();
+  //triggerIdentifyGeo();
   const dataSend = {
     ...data,
     metadata: {
