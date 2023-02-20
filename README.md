@@ -2,12 +2,18 @@
 
 Devhaus Tracking Code is a helper code snippet that helps Webflow developers mainly to implement [Segment](https://segment.com/) events and send them to multiple destinations (e.g. Google Analytics, Facebook Pixel, etc.) without having to write any code. It also supports [Google Analytics 4](https://analytics.google.com) if the client opts out to track events without Segment in place.
 
+[baseurl]: https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.0/dist/index.js
+
 ## Table of Contents
 
 - [Devhaus Tracking Code](#devhaus-tracking-code)
   - [Table of Contents](#table-of-contents)
+- [Installation and Configuration](#installation-and-configuration)
   - [How to Install](#how-to-install)
-    - [Enable Google Analytics Support (bypassing Segment)](#enable-google-analytics-support-bypassing-segment)
+  - [How to Install (v2.0.0 or lower)](#how-to-install-v200-or-lower)
+  - [Enable Google Analytics Support (bypassing Segment)](#enable-google-analytics-support-bypassing-segment)
+  - [Consent Manager](#consent-manager)
+- [Local Development Process](#local-development-process)
   - [Included tools](#included-tools)
   - [Requirements](#requirements)
     - [Installing](#installing)
@@ -22,18 +28,41 @@ Devhaus Tracking Code is a helper code snippet that helps Webflow developers mai
     - [Continuous Integration](#continuous-integration)
     - [Continuous Deployment](#continuous-deployment)
       - [How to automatically deploy updates to npm](#how-to-automatically-deploy-updates-to-npm)
+  - [License](#license)
+
+# Installation and Configuration
+
+The section below describes the process of installing and configuring the Devhaus Tracking Code snippet inside your Webflow project.
 
 ## How to Install
 
-1. Put your `analytics.js` snippet from Segment to the `<head>` of the page
-2. **_(Optional) It is highly recommended_** that you modify your `analytics.js` file to include a staging source and a production source. This will allow you to test your events in staging before sending them to production. To do this, you need to add the following and **replace to the `analytics.load()` call with the following**:
+1. Take note of your Segment source's `writeKey`, **both for staging and production**.
+2. Copy the code below and paste it in the `<head>` of the page and replace the `segment-prod-write-key` and `segment-dev-write-key` with your Segment source's `writeKey`:
 
-```js
-if (window.location.hostname.includes('webflow.io')) {
-  analytics.load('YOUR_STAGING_SOURCE_WRITE_KEY');
-} else {
-  analytics.load('YOUR_PRODUCTION_SOURCE_WRITE_KEY');
-}
+```html
+<script
+  id="devhaus-tracking-code"
+  defer
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.0/dist/index.js"
+  segment-prod-write-key="YOUR_PRODUCTION_SOURCE_WRITE_KEY"
+  segment-dev-write-key="YOUR_STAGING_SOURCE_WRITE_KEY"
+  ga4="G-KX4P1VM4ZL"
+  ga4-debug-mode="true"
+></script>
+```
+
+3. In a case where you want to use Google Analytics 4 (GA4) without Segment, you can add the `ga4` **attribute** without the `segment-prod-write-key` and `segment-dev-write-key` attributes. [See this section below for more details](#enable-google-analytics-support-bypassing-segment).
+
+## How to Install (v2.0.0 or lower)
+
+1. Put your `analytics.js` snippet from Segment to the `<head>` of the page
+2. **_(Optional) It is highly recommended_** that you modify your`analytics.js` file to include a staging source and a production source. This will allow you to test your events in staging before sending them to production. To do this, you need to add the following and \*\*replace to the `analytics.load()` call with the following\*\*:
+
+```js if
+(window.location.hostname.includes('webflow.io')) {
+analytics.load('YOUR_STAGING_SOURCE_WRITE_KEY'); } else {
+analytics.load('YOUR_PRODUCTION_SOURCE_WRITE_KEY'); }
+</head>
 ```
 
 3. Put the code below also in `<head>` after the `analytics.js` snippet; this is the Devhaus Tracking Code snippet:
@@ -46,7 +75,9 @@ if (window.location.hostname.includes('webflow.io')) {
 ></script>
 ```
 
-### Enable Google Analytics Support (bypassing Segment)
+<a name="enable-google-analytics-support-bypassing-segment"></a>
+
+## Enable Google Analytics Support (bypassing Segment)
 
 To enable Google Analytics support, you need to add the `ga4` **attribute** and put your measurement ID as the value:
 
@@ -54,7 +85,7 @@ To enable Google Analytics support, you need to add the `ga4` **attribute** and 
 <script
   id="devhaus-tracking-code"
   defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.0/dist/index.js"
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.0/dist/index.js"
   ga4="G-XXXXXXXXXX"
 ></script>
 ```
@@ -66,11 +97,33 @@ To enable GA4 DebugView, you need to add the `ga4-debug-mode` **attribute** and 
 <script
   id="devhaus-tracking-code"
   defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.0/dist/index.js"
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.0/dist/index.js"
   ga4="G-XXXXXXXXXX"
   ga4-debug-mode="true"
 ></script>
 ```
+
+## Consent Manager
+
+By default, Devhaus Tracking Code is shipped with a standalone version of [Segment Consent Manager](https://github.com/segmentio/consent-manager).
+You can add the `enable-consent-manager` **attribute** and put `false` as the value to disable the consent manager:
+
+```html
+<script
+  id="devhaus-tracking-code"
+  defer
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.0/dist/index.js"
+  segment-prod-write-key="YOUR_PRODUCTION_SOURCE_WRITE_KEY"
+  segment-dev-write-key="YOUR_STAGING_SOURCE_WRITE_KEY"
+  enable-consent-manager="false"
+></script>
+```
+
+You can also replace `enable-consent-manager` value with `true` (to force enable the consent manager) or `eu` (to enable the consent manager only if the user is in the EU region).
+
+# Local Development Process
+
+The section below describes the process of setting up a local development environment for this project.
 
 ## Included tools
 
@@ -264,3 +317,8 @@ This npm token should be:
 Once you're logged into the npm account, you can get an access token by following [this guide](https://docs.npmjs.com/creating-and-viewing-access-tokens).
 
 The access token must be then placed in a [repository secret](https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/managing-encrypted-secrets-for-your-repository-and-organization-for-codespaces#adding-secrets-for-a-repository) named `NPM_TOKEN`.
+
+## License
+
+Devhaus Tracking Code is licensed under the MIT License.
+Copyright © 2023, Devhaus Pte. Ltd.
