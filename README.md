@@ -43,7 +43,7 @@ The section below describes the process of installing and configuring the Devhau
 <script
   id="devhaus-tracking-code"
   defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.0/dist/index.js"
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.1/dist/index.js"
   segment-prod-write-key="YOUR_PRODUCTION_SOURCE_WRITE_KEY"
   segment-dev-write-key="YOUR_STAGING_SOURCE_WRITE_KEY"
 ></script>
