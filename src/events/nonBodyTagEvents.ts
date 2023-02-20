@@ -13,7 +13,6 @@ export default function nonBodyTagEvents(
   pageviewElements: NodeListOf<Element>
 ) {
   const pageviewArray = Array.from(pageviewElements) as HTMLElement[];
-  //const eventName = element.dataset['segmentEvent'];
   const properties: GenericObject = {};
   const identifyProperties: GenericObject = {};
   if (eventName) {
