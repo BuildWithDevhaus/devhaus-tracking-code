@@ -46,8 +46,6 @@ The section below describes the process of installing and configuring the Devhau
   src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.0/dist/index.js"
   segment-prod-write-key="YOUR_PRODUCTION_SOURCE_WRITE_KEY"
   segment-dev-write-key="YOUR_STAGING_SOURCE_WRITE_KEY"
-  ga4="G-KX4P1VM4ZL"
-  ga4-debug-mode="true"
 ></script>
 ```
 
