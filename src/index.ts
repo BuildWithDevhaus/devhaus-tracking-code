@@ -7,15 +7,6 @@ const scriptTag = document.getElementById('devhaus-tracking-code');
 const segmentProductionWriteKey = scriptTag?.getAttribute('segment-prod-write-key');
 const segmentDevWriteKey = scriptTag?.getAttribute('segment-dev-write-key') ?? undefined;
 const enableConsentManager = scriptTag?.getAttribute('enable-consent-manager') ?? 'eu';
-if (
-  enableConsentManager !== 'false' &&
-  enableConsentManager !== 'true' &&
-  enableConsentManager !== 'eu'
-) {
-  console.error(
-    'enable-consent-manager attribute must be either "true", "false", or "eu". Please update your Webflow project.'
-  );
-}
 if (segmentProductionWriteKey)
   loadSegmentAnalytics(
     segmentProductionWriteKey,

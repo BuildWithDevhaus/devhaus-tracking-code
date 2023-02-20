@@ -8,15 +8,20 @@ export default function loadConsentManager(
   alwaysRequireConsent: 'true' | 'false' | 'eu' = 'eu',
   devWriteKey?: string
 ) {
-  const script = document.createElement('script');
-  script.src = 'https://unpkg.com/@segment/consent-manager@5.7.0/standalone/consent-manager.js';
-  script.defer = true;
-  document.body.appendChild(script);
+  if (alwaysRequireConsent === 'eu' || alwaysRequireConsent === 'true') {
+    //check if there is any script tag that has src includes consent-manager.js
+    const consentManagerScript = document.querySelector('script[src*="consent-manager.js"]');
+    if (!consentManagerScript) {
+      console.error('Consent Manager script not found');
+      return;
+    }
+  }
+
   window.consentManagerConfig = function (exports) {
     try {
       //somehow the exports returns undefined but somehow if I wrap it in a try block it works???
       exports.preferences.onPreferencesSaved(function () {
-        console.log('preferences saved');
+        // console.log('preferences saved');
         const consentManagerBanner = document.getElementById('consent-manager-banner');
         if (consentManagerBanner) {
           consentManagerBanner.classList.add('hidden');
@@ -40,13 +45,6 @@ export default function loadConsentManager(
       };
     }
   };
-
-  // window.consentManager.preferences.onPreferencesSaved(function () {
-  //   // could be used to store consent server side, or send it into an API
-  //   const consentManagerBanner = document.getElementById('consent-manager-banner');
-  //   consentManagerBanner?.classList.add('hidden');
-  //   console.log('preferences saved');
-  // });
 
   const consentManagerBanner = document.getElementById('consent-manager-banner');
   const buttonConsentManager = document.getElementById('open-consent-manager');

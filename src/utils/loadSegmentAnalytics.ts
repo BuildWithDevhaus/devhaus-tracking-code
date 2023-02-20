@@ -6,6 +6,9 @@ export default function loadSegmentAnalytics(
   enableConsentManager: 'true' | 'false' | 'eu' | null = 'eu',
   devWriteKey?: string
 ) {
+  if (enableConsentManager !== null) {
+    loadConsentManager(prodWriteKey, enableConsentManager, devWriteKey);
+  }
   const analytics = (window.analytics = window.analytics ?? []);
   if (!analytics.initialize)
     if (analytics.invoked) throw new Error('Segment snippet included twice.');
@@ -29,9 +32,9 @@ export default function loadSegmentAnalytics(
         'off',
         'on',
         'addSourceMiddleware',
-        'addIntegrationMiddleware',
-        'setAnonymousId',
-        'addDestinationMiddleware',
+        // 'addIntegrationMiddleware',
+        // 'setAnonymousId',
+        // 'addDestinationMiddleware',
       ];
       analytics.factory = function (e) {
         return function () {
@@ -57,12 +60,8 @@ export default function loadSegmentAnalytics(
 
       analytics._writeKey = getCorrectWriteKey(prodWriteKey, undefined, devWriteKey);
       analytics.SNIPPET_VERSION = '4.15.3';
-      if (!enableConsentManager)
+      if (enableConsentManager === 'false')
         analytics.load(getCorrectWriteKey(prodWriteKey, undefined, devWriteKey));
       analytics.page();
-
-      if (enableConsentManager !== null) {
-        loadConsentManager(prodWriteKey, enableConsentManager, devWriteKey);
-      }
     }
 }
