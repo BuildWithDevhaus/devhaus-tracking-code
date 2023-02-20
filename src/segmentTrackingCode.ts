@@ -1,4 +1,5 @@
 import initiateGA4 from 'utils/initiateGA4';
+import triggerIdentifyGeo from 'utils/triggerIdentifyGeo';
 
 import bodyTagEvents from './events/bodyTagEvents';
 import nonBodyTagEvents from './events/nonBodyTagEvents';
@@ -9,6 +10,7 @@ export default function segmentTrackingCode() {
   const allEvents = document.querySelectorAll('[data-event]');
   const pageviewElements = document.querySelectorAll('[data-pageview-property-name]');
   initiateGA4();
+  triggerIdentifyGeo();
   [...allEvents, ...allSegmentElements].forEach((el) => {
     const element = el as HTMLElement;
     //event name is either data-event or data-segment-event

@@ -10,7 +10,6 @@ export default function bodyTagEvents(
   pageviewElements: NodeListOf<Element>
 ) {
   const pageviewArray = Array.from(pageviewElements) as HTMLElement[];
-  //const eventName = element.dataset['segmentEvent'];
   const properties: GenericObject = {};
   for (let i = 1; i <= 100; i++) {
     const propertyName = element.dataset?.['propertyName' + i];

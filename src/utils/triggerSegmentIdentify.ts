@@ -1,7 +1,7 @@
 import triggerIdentifyGeo from './triggerIdentifyGeo';
 
 export default function triggerSegmentIdentify(data = {}) {
-  triggerIdentifyGeo();
+  //triggerIdentifyGeo();
   //console.log(`Segment - Identify`, data);
   if (window.analytics) {
     // if (isDev) console.log(`Segment - Identify`, data);

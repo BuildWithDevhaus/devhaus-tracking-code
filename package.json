@@ -1,17 +1,17 @@
 {
-  "name": "@finsweet/developer-starter",
-  "version": "1.0.0",
+  "name": "@devhaus/devhaus-tracking-code",
+  "version": "2.0.0",
   "description": "Developer starter template for Finsweet projects.",
-  "homepage": "https://github.com/finsweet/developer-starter#readme",
+  "homepage": "https://github.com/BuildWithDevhaus/devhaus-tracking-code#readme",
   "license": "ISC",
   "keywords": [],
   "author": {
-    "name": "Finsweet",
-    "url": "https://www.finsweet.com/"
+    "name": "Devhaus",
+    "url": "https://www.devhaus.com.sg"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/finsweet/developer-starter.git"
+    "url": "git+https://github.com/BuildWithDevhaus/devhaus-tracking-code.git"
   },
   "bugs": {
     "url": "https://github.com/finsweet/developer-starter/issues"

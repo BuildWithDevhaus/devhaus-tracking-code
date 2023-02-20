@@ -3,7 +3,7 @@ import triggerGA4Event from './triggerGA4Event';
 import triggerIdentifyGeo from './triggerIdentifyGeo';
 
 export default function triggerSegmentEvent(eventName = '', data = {}) {
-  triggerIdentifyGeo();
+  //triggerIdentifyGeo();
   const dataSend = {
     ...data,
     metadata: {
@@ -12,12 +12,11 @@ export default function triggerSegmentEvent(eventName = '', data = {}) {
       utm_campaign: getUTM('utm_campaign'),
     },
   };
-  //console.log(`Segment - ${eventName}`, dataSend);
+
   triggerGA4Event(eventName, data);
 
+  //console.log('triggerSegmentEvent', eventName, dataSend);
   if (window?.analytics) {
     window?.analytics?.track(eventName, dataSend);
-  } else {
-    //console.log(`Segment - ${eventName}`, dataSend);
   }
 }
