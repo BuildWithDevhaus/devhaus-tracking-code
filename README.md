@@ -13,6 +13,9 @@ Devhaus Tracking Code is a helper code snippet that helps Webflow developers mai
   - [How to Install (v2.0.0 or lower)](#how-to-install-v200-or-lower)
   - [Enable Google Analytics Support (bypassing Segment)](#enable-google-analytics-support-bypassing-segment)
   - [Consent Manager](#consent-manager)
+    - [Consent Manager Banner Customisation](#consent-manager-banner-customisation)
+      - [Attributes](#attributes)
+      - [Classnames](#classnames)
 - [Local Development Process](#local-development-process)
   - [Included tools](#included-tools)
   - [Requirements](#requirements)
@@ -118,6 +121,26 @@ You can add the `enable-consent-manager` **attribute** and put `false` as the va
 ```
 
 You can also replace `enable-consent-manager` value with `true` (to force enable the consent manager) or `eu` (to enable the consent manager only if the user is in the EU region).
+
+### Consent Manager Banner Customisation
+
+You can use classnames and/or attributes to customise the consent manager banner.
+
+#### Attributes
+
+| Attribute Name               | Data Type | Usage                                                                                                | Default Value                                 |
+| ---------------------------- | --------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| `consent-banner-color`       | string    | Change the color of the banner (note: it is recommended more to change colour from Webflow instead.) | `rgba(0,0,0,0)`                               |
+| `consent-banner-text-color`  | string    | Change the color of the banner text colour.                                                          | `#ffffff`                                     |
+| `consent-banner-content`     | string    | Change the main content of the Consent Manager banner.                                               | "We use cookies to improve your experience."  |
+| `consent-banner-sub-content` | string    | Change the sub content of the Consent Manager banner.                                                | "You can change your preferences at anytime." |
+
+#### Classnames
+
+| Class Name                   | Usage                                 |
+| ---------------------------- | ------------------------------------- |
+| `consent-banner-content`     | Change the style of the main content. |
+| `consent-banner-sub-content` | Change the style of the sub content.  |
 
 # Local Development Process
 
