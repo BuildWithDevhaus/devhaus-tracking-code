@@ -46,7 +46,7 @@ The section below describes the process of installing and configuring the Devhau
 <script
   id="devhaus-tracking-code"
   defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.2/dist/index.js"
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.3/dist/index.js"
   segment-prod-write-key="YOUR_PRODUCTION_SOURCE_WRITE_KEY"
   segment-dev-write-key="YOUR_STAGING_SOURCE_WRITE_KEY"
 ></script>
@@ -97,7 +97,7 @@ To enable Google Analytics support, you need to add the `ga4` **attribute** and 
 <script
   id="devhaus-tracking-code"
   defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.2/dist/index.js"
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.3/dist/index.js"
   ga4="G-XXXXXXXXXX"
 ></script>
 ```
@@ -109,7 +109,7 @@ To enable GA4 DebugView, you need to add the `ga4-debug-mode` **attribute** and 
 <script
   id="devhaus-tracking-code"
   defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.2/dist/index.js"
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.3/dist/index.js"
   ga4="G-XXXXXXXXXX"
   ga4-debug-mode="true"
 ></script>
@@ -124,7 +124,7 @@ You can add the `enable-consent-manager` **attribute** and put `false` as the va
 <script
   id="devhaus-tracking-code"
   defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.2/dist/index.js"
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.3/dist/index.js"
   segment-prod-write-key="YOUR_PRODUCTION_SOURCE_WRITE_KEY"
   segment-dev-write-key="YOUR_STAGING_SOURCE_WRITE_KEY"
   enable-consent-manager="false"
