@@ -1,5 +1,6 @@
 import jotformTrackingCode from 'jotformTrackingCode';
 import segmentTrackingCode from 'segmentTrackingCode';
+import initiateGA4 from 'utils/initiateGA4';
 import loadSegmentAnalytics from 'utils/loadSegmentAnalytics';
 
 const scriptTag = document.getElementById('devhaus-tracking-code');
@@ -7,11 +8,14 @@ const scriptTag = document.getElementById('devhaus-tracking-code');
 const segmentProductionWriteKey = scriptTag?.getAttribute('segment-prod-write-key');
 const segmentDevWriteKey = scriptTag?.getAttribute('segment-dev-write-key') ?? undefined;
 const enableConsentManager = scriptTag?.getAttribute('enable-consent-manager') ?? 'eu';
+const enableGA4 = scriptTag?.getAttribute('ga4') ?? 'false';
+
 if (segmentProductionWriteKey)
   loadSegmentAnalytics(
     segmentProductionWriteKey,
     enableConsentManager as 'true' | 'false' | 'eu',
     segmentDevWriteKey
   );
+if (enableGA4 === 'true') initiateGA4();
 segmentTrackingCode();
 window.addEventListener('load', jotformTrackingCode);
