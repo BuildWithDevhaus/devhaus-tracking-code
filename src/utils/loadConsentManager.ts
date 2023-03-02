@@ -5,14 +5,10 @@ export default function loadConsentManager(
   alwaysRequireConsent: 'true' | 'false' | 'eu' = 'eu',
   devWriteKey?: string
 ) {
-  // if (alwaysRequireConsent === 'eu' || alwaysRequireConsent === 'true') {
-  //   //check if there is any script tag that has src includes consent-manager.js
-  //   const consentManagerScript = document.querySelector('script[src*="consent-manager.js"]');
-  //   if (!consentManagerScript) {
-  //     console.error('Consent Manager script not found');
-  //     return;
-  //   }
-  // }
+  if (alwaysRequireConsent === 'false') {
+    //check if there is any script tag that has src includes consent-manager.js
+    return;
+  }
   window.consentManagerConfig = function (exports) {
     let inEU, React;
     try {
@@ -81,9 +77,7 @@ export default function loadConsentManager(
 
   const buttonConsentManager = document.getElementById('open-consent-manager');
   if (!buttonConsentManager) {
-    console.error(
-      "#open-consent-manager Button doesn't exist. Please update your Webflow project."
-    );
+    console.warn("#open-consent-manager Button doesn't exist. Please update your Webflow project.");
   }
 
   const openConsentManager = function () {

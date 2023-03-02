@@ -1,3 +1,4 @@
+import mergePhoneNumber from 'utils/mergePhoneNumber';
 import removePIIsFromData from 'utils/removePIIsFromData';
 import triggerSegmentEvent from 'utils/triggerSegmentEvent';
 import triggerSegmentIdentify from 'utils/triggerSegmentIdentify';
@@ -55,10 +56,13 @@ export default function jotformTrackingCode() {
             }
           }
         });
-        triggerSegmentIdentify(data);
+        const dataWithPII = mergePhoneNumber(data);
+        const dataWithoutPII = removePIIsFromData(dataWithPII);
+
+        triggerSegmentIdentify(dataWithPII);
         triggerSegmentEvent(
           subParent?.title ? `${subParent.title} Form Submitted` : 'Jotform Form Submitted',
-          removePIIsFromData(data)
+          dataWithoutPII
         );
         //return false;
       });
