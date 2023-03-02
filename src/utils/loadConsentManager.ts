@@ -13,9 +13,9 @@ export default function loadConsentManager(
     let inEU, React;
     try {
       //somehow the exports returns undefined but somehow if I wrap it in a try block it works???
-      exports.preferences.onPreferencesSaved(function () {
-        console.log('preferences saved');
-      });
+      // exports.preferences.onPreferencesSaved(function () {
+      //   console.log('preferences saved');
+      // });
       React = exports.React;
       inEU = exports.inEU;
     } finally {
@@ -74,6 +74,15 @@ export default function loadConsentManager(
   consentManagerScript.src =
     'https://unpkg.com/@segment/consent-manager@5.7.0/standalone/consent-manager.js';
   document.body.appendChild(consentManagerScript);
+  const devhausTrackingCode = document.getElementById('devhaus-tracking-code');
+  const includeBuiltInBanner =
+    devhausTrackingCode?.getAttribute('include-built-in-banner') ?? 'false';
+  if (includeBuiltInBanner === 'true') {
+    //put banner in the body
+    const banner = document.createElement('div');
+    banner.id = 'consent-manager';
+    document.body.appendChild(banner);
+  }
 
   const buttonConsentManager = document.getElementById('open-consent-manager');
   if (!buttonConsentManager) {
