@@ -1,5 +1,3 @@
-import triggerIdentifyGeo from './triggerIdentifyGeo';
-
 export default function triggerSegmentIdentify(data = {}) {
   //triggerIdentifyGeo();
   //console.log(`Segment - Identify`, data);

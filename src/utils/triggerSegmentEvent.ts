@@ -1,6 +1,7 @@
 import getUTM from './getUTM';
 import triggerGA4Event from './triggerGA4Event';
-import triggerIdentifyGeo from './triggerIdentifyGeo';
+
+//import triggerIdentifyGeo from './triggerIdentifyGeo';
 
 export default function triggerSegmentEvent(eventName = '', data = {}) {
   //triggerIdentifyGeo();
@@ -15,9 +16,9 @@ export default function triggerSegmentEvent(eventName = '', data = {}) {
 
   triggerGA4Event(eventName, data);
 
-  console.log('triggerSegmentEvent', eventName, dataSend);
+  //console.log('triggerSegmentEvent', eventName, dataSend);
   if (window?.analytics) {
-    console.log(window.analytics);
+    //console.log(window.analytics);
     window?.analytics?.track(eventName, dataSend);
   }
 }

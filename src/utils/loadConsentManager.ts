@@ -5,21 +5,17 @@ export default function loadConsentManager(
   alwaysRequireConsent: 'true' | 'false' | 'eu' = 'eu',
   devWriteKey?: string
 ) {
-  // if (alwaysRequireConsent === 'eu' || alwaysRequireConsent === 'true') {
-  //   //check if there is any script tag that has src includes consent-manager.js
-  //   const consentManagerScript = document.querySelector('script[src*="consent-manager.js"]');
-  //   if (!consentManagerScript) {
-  //     console.error('Consent Manager script not found');
-  //     return;
-  //   }
-  // }
+  if (alwaysRequireConsent === 'false') {
+    //check if there is any script tag that has src includes consent-manager.js
+    return;
+  }
   window.consentManagerConfig = function (exports) {
     let inEU, React;
     try {
       //somehow the exports returns undefined but somehow if I wrap it in a try block it works???
-      exports.preferences.onPreferencesSaved(function () {
-        console.log('preferences saved');
-      });
+      // exports.preferences.onPreferencesSaved(function () {
+      //   console.log('preferences saved');
+      // });
       React = exports.React;
       inEU = exports.inEU;
     } finally {
@@ -78,12 +74,19 @@ export default function loadConsentManager(
   consentManagerScript.src =
     'https://unpkg.com/@segment/consent-manager@5.7.0/standalone/consent-manager.js';
   document.body.appendChild(consentManagerScript);
+  const devhausTrackingCode = document.getElementById('devhaus-tracking-code');
+  const includeBuiltInBanner =
+    devhausTrackingCode?.getAttribute('include-built-in-banner') ?? 'false';
+  if (includeBuiltInBanner === 'true') {
+    //put banner in the body
+    const banner = document.createElement('div');
+    banner.id = 'consent-manager';
+    document.body.appendChild(banner);
+  }
 
   const buttonConsentManager = document.getElementById('open-consent-manager');
   if (!buttonConsentManager) {
-    console.error(
-      "#open-consent-manager Button doesn't exist. Please update your Webflow project."
-    );
+    console.warn("#open-consent-manager Button doesn't exist. Please update your Webflow project.");
   }
 
   const openConsentManager = function () {
