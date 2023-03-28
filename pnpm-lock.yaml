@@ -21,11 +21,13 @@ specifiers:
   eslint-plugin-prettier: ^4.2.1
   prettier: ^2.7.1
   typescript: ^4.7.4
+  uuid: ^9.0.0
 
 dependencies:
   '@finsweet/ts-utils': 0.33.1
   '@fullstory/browser': 1.7.0
   cookie: 0.5.0
+  uuid: 9.0.0
 
 devDependencies:
   '@changesets/changelog-git': 0.1.12
@@ -2910,6 +2912,11 @@ packages:
     dependencies:
       punycode: 2.1.1
     dev: true
+
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
+    dev: false
 
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}
