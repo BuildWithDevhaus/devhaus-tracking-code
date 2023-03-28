@@ -6,6 +6,7 @@ specifiers:
   '@finsweet/eslint-config': ^1.1.5
   '@finsweet/ts-utils': ^0.33.1
   '@finsweet/tsconfig': ^1.1.0
+  '@fullstory/browser': ^1.7.0
   '@playwright/test': ^1.25.0
   '@trivago/prettier-plugin-sort-imports': ^3.3.0
   '@types/cookie': ^0.5.1
@@ -23,6 +24,7 @@ specifiers:
 
 dependencies:
   '@finsweet/ts-utils': 0.33.1
+  '@fullstory/browser': 1.7.0
   cookie: 0.5.0
 
 devDependencies:
@@ -533,6 +535,10 @@ packages:
   /@finsweet/tsconfig/1.1.0:
     resolution: {integrity: sha512-P+cceRLc4wzcN3YfTCMqOQ1SfrxIFcMvC1lzgl8rd021ZcCNkdiOYlPkpZSL1lzDt2+9k4wFq4OUFcxALdOOsQ==}
     dev: true
+
+  /@fullstory/browser/1.7.0:
+    resolution: {integrity: sha512-O+3qAfKdi0lh4XgLK5fxm2Qk4VtkFh16D6yLa40dmuDMJSdhQT76P8eO7xyNgeB/L4FPWyEcPiUGh7NvEOq9Kw==}
+    dev: false
 
   /@humanwhocodes/config-array/0.10.4:
     resolution: {integrity: sha512-mXAIHxZT3Vcpg83opl1wGlVZ9xydbfZO3r5YfRSH6Gpp2J/PfdBP0wbDa2sO6/qRbcalpoevVyW6A/fI6LfeMw==}

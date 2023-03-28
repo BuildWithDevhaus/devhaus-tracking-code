@@ -54,6 +54,7 @@
   },
   "dependencies": {
     "@finsweet/ts-utils": "^0.33.1",
+    "@fullstory/browser": "^1.7.0",
     "cookie": "^0.5.0"
   }
 }
