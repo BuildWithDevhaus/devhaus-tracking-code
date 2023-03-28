@@ -11,11 +11,13 @@ Devhaus Tracking Code is a helper code snippet that helps Webflow developers mai
 - [Installation and Configuration](#installation-and-configuration)
   - [How to Install](#how-to-install)
   - [How to Install (v2.0.0 or lower)](#how-to-install-v200-or-lower)
-  - [Enable Google Analytics Support (bypassing Segment)](#enable-google-analytics-support-bypassing-segment)
-  - [Consent Manager](#consent-manager)
-    - [Consent Manager Banner Customisation](#consent-manager-banner-customisation)
-      - [Attributes](#attributes)
-      - [Classnames](#classnames)
+  - [Enable Analytics Tools Support without a CDP](#enable-analytics-tools-support-without-a-cdp)
+- [Consent Management](#consent-management)
+  - [Segment Consent Manager](#segment-consent-manager)
+    - [Segment Consent Manager Banner Customisation](#segment-consent-manager-banner-customisation)
+      - [Segment Consent Manager Banner Attributes](#segment-consent-manager-banner-attributes)
+      - [Segment Consent Manager Banner Classnames](#segment-consent-manager-banner-classnames)
+  - [Consent Manager Support without a CDP](#consent-manager-support-without-a-cdp)
 - [Local Development Process](#local-development-process)
   - [Included tools](#included-tools)
   - [Requirements](#requirements)
@@ -46,7 +48,7 @@ The section below describes the process of installing and configuring the Devhau
 <script
   id="devhaus-tracking-code"
   defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.4/dist/index.js"
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.2.0/dist/index.js"
   segment-prod-write-key="YOUR_PRODUCTION_SOURCE_WRITE_KEY"
   segment-dev-write-key="YOUR_STAGING_SOURCE_WRITE_KEY"
 ></script>
@@ -89,55 +91,45 @@ analytics.load('YOUR_PRODUCTION_SOURCE_WRITE_KEY'); }
 
 <a name="enable-google-analytics-support-bypassing-segment"></a>
 
-## Enable Google Analytics Support (bypassing Segment)
+## Enable Analytics Tools Support without a CDP
 
-To enable Google Analytics support, you need to add the `ga4` **attribute** and put your measurement ID as the value:
+By default, Devhaus Tracking Code is shipped with a CDP implementation considered in mind.
 
-```html
-<script
-  id="devhaus-tracking-code"
-  defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.4/dist/index.js"
-  ga4="G-XXXXXXXXXX"
-></script>
-```
+However, you can also use Devhaus Tracking Code without a CDP -- making it acts like a Tag Manager. In this case, you need to make sure that you omit the `segment-prod-write-key` and `segment-dev-write-key` attributes.
 
-To enable GA4 DebugView, you need to add the `ga4-debug-mode` **attribute** and put `true` as the value:
-**NOTE: This feature is unstable and may not work as expected.**
+Below are the analytics tools that you can use:
 
-```html
-<script
-  id="devhaus-tracking-code"
-  defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.4/dist/index.js"
-  ga4="G-XXXXXXXXXX"
-  ga4-debug-mode="true"
-></script>
-```
+- [Google Analytics 4 (GA4)](./docs/standalone_tools/ga4.md)
+- [FullStory](/docs/standalone_tools/fullstory.md)
 
-## Consent Manager
+# Consent Management
 
-By default, Devhaus Tracking Code is shipped with a standalone version of [Segment Consent Manager](https://github.com/segmentio/consent-manager).
+Below are the consent management features that are supported by Devhaus Tracking Code:
+
+- [Segment Consent Manager](#segment-consent-manager)
+- [Consent Manager Support without a CDP](#consent-manager-support-without-a-cdp)
+
+## Segment Consent Manager
+
+By default, Devhaus Tracking Code is shipped with a standalone version of [Segment Consent Manager](https://github.com/segmentio/consent-manager). By default, the consent manager is enabled for all users in the EU region or `enable-consent-manager` is set to `eu`.
+
 You can add the `enable-consent-manager` **attribute** and put `false` as the value to disable the consent manager:
 
 ```html
-<script
-  id="devhaus-tracking-code"
-  defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.1.4/dist/index.js"
-  segment-prod-write-key="YOUR_PRODUCTION_SOURCE_WRITE_KEY"
-  segment-dev-write-key="YOUR_STAGING_SOURCE_WRITE_KEY"
-  enable-consent-manager="false"
-></script>
+<script 
+    <!-- the rest of the Devhaus Tracking Code snippet -->
+    enable-consent-manager="false"
+  >
+</script>
 ```
 
 You can also replace `enable-consent-manager` value with `true` (to force enable the consent manager) or `eu` (to enable the consent manager only if the user is in the EU region).
 
-### Consent Manager Banner Customisation
+### Segment Consent Manager Banner Customisation
 
 You can use classnames and/or attributes to customise the consent manager banner.
 
-#### Attributes
+#### Segment Consent Manager Banner Attributes
 
 | Attribute Name               | Data Type            | Usage                                                                                                | Default Value                                 |
 | ---------------------------- | -------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------- |
@@ -147,12 +139,53 @@ You can use classnames and/or attributes to customise the consent manager banner
 | `consent-banner-sub-content` | string               | Change the sub content of the Consent Manager banner.                                                | "You can change your preferences at anytime." |
 | `include-built-in-banner`    | `'true'` / `'false'` | Option to include `<div id="consent-manager"></div>` to be rendered in the `<body>` tag              | `'false'`                                     |
 
-#### Classnames
+#### Segment Consent Manager Banner Classnames
 
 | Class Name                   | Usage                                 |
 | ---------------------------- | ------------------------------------- |
 | `consent-banner-content`     | Change the style of the main content. |
 | `consent-banner-sub-content` | Change the style of the sub content.  |
+
+## Consent Manager Support without a CDP
+
+In case you are using Devhaus Tracking Code without a CDP, you can use the `enable-consent-manager` attribute to force enable the consent manager.
+By default, the consent manager will be disabled or `false`. `eu` doesn't work in this case and will work the same as `true`.
+
+```html
+<script 
+    <!-- the rest of the Devhaus Tracking Code snippet -->
+    enable-consent-manager="true"
+  >
+</script>
+```
+
+but unlike Segment Consent Manager, you need to create your own consent manager banner in Webflow.
+There are 4 components that you need to create:
+1. A `<div>` with the `id` of `consent-manager`,
+2. A button with the `id` of `consent-manager-accept` inside the `<div>` with the `id` of `consent-manager`,
+3. A button with the `id` of `consent-manager-decline` inside the `<div>` with the `id` of `consent-manager`,
+4. and A button with the `id` of `open-consent-manager`.
+
+You can use the following HTML code as an example reference:
+
+```html
+<div id="consent-manager">
+  <div class="consent-manager-content">
+    <div class="consent-manager-content-text">
+      <div class="consent-manager-content-text-main">
+        We use cookies to improve your experience.
+      </div>
+      <div class="consent-manager-content-text-sub">
+        You can change your preferences at anytime.
+      </div>
+    </div>
+    <div class="consent-manager-content-buttons">
+      <button id="consent-manager-accept">Accept</button>
+      <button id="consent-manager-decline">Decline</button>
+    </div>
+  </div>
+```
+The styling of the consent manager can be done in Webflow according to the classnames that you set. The example above only shows how you incorporate the styling into the consent manager. **You can change the styling and classnames as you wish, as long as the 4 components mentioned above are present**.
 
 # Local Development Process
 

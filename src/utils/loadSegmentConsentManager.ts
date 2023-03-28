@@ -1,6 +1,6 @@
 import getCorrectWriteKey from './getCorrectWriteKey';
 
-export default function loadConsentManager(
+export default function loadSegmentConsentManager(
   prodWriteKey: string,
   alwaysRequireConsent: 'true' | 'false' | 'eu' = 'eu',
   devWriteKey?: string
