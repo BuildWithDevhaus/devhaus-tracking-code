@@ -21,17 +21,18 @@ if (segmentProductionWriteKey) {
   );
 }
 const enabledStandaloneTools: string[] = [];
-if (
-  !segmentProductionWriteKey &&
-  (enableConsentManager === 'true' || enableConsentManager === 'eu')
-) {
-  if (ga4 !== 'false') enabledStandaloneTools.push('ga4');
-  if (fullstory !== 'false') enabledStandaloneTools.push('fullstory');
-  loadGenericConsentManager(enabledStandaloneTools);
-}
-if (enableConsentManager === 'false' && !segmentProductionWriteKey) {
-  if (ga4 !== 'false') initiateGA4();
-  if (fullstory !== 'false') initiateFullstory(fullstory);
+if (!segmentProductionWriteKey) {
+  if (ga4 !== 'false') {
+    initiateGA4();
+    enabledStandaloneTools.push('ga4');
+  }
+  if (fullstory !== 'false') {
+    initiateFullstory(fullstory);
+    enabledStandaloneTools.push('fullstory');
+  }
+  if (enableConsentManager !== 'false') {
+    loadGenericConsentManager(enabledStandaloneTools);
+  }
 }
 
 segmentTrackingCode();

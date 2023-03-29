@@ -1,4 +1,5 @@
-import checkForExistingCookies from './checkForExistingCookies';
+import displayGenericConsentManagerBanner from './displayGenericConsentManagerBanner';
+import toggleConsent from './toggleConsent';
 
 export default function loadGenericConsentManager(tools: string[]) {
   //4 components needed,
@@ -49,10 +50,29 @@ export default function loadGenericConsentManager(tools: string[]) {
         )}, but no button with id 'open-consent-manager' found. Please update your Webflow project.`
     );
   }
-  consentManagerDiv.style.display = 'none';
-  //check for existing cookies depending on tools
-  checkForExistingCookies(tools);
+  //check devhaus-tracking-code-allow-consent in local storage
+  const allowConsent = localStorage.getItem('devhaus-tracking-code-allow-consent');
+  if (allowConsent === 'true') {
+    toggleConsent(tools, true);
+  } else {
+    toggleConsent(tools, false);
+    //if devhaus-tracking-code-allow-consent is not in local storage, show consent manager
+    if (!allowConsent) displayGenericConsentManagerBanner(true);
+  }
+
   acceptButton.addEventListener('click', () => {
-    consentManagerDiv.style.display = 'none';
+    displayGenericConsentManagerBanner(false);
+    toggleConsent(tools, true);
+    localStorage.setItem('devhaus-tracking-code-allow-consent', 'true');
+  });
+
+  declineButton.addEventListener('click', () => {
+    displayGenericConsentManagerBanner(false);
+    toggleConsent(tools, false);
+    localStorage.setItem('devhaus-tracking-code-allow-consent', 'false');
+  });
+
+  openConsentManagerButton?.addEventListener('click', () => {
+    displayGenericConsentManagerBanner(true);
   });
 }
