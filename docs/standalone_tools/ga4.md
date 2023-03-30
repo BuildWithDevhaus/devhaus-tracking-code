@@ -1,3 +1,5 @@
+[<< Back to README](../../README.md)
+
 ## Enable Google Analytics 4 (GA4) support
 
 To enable Google Analytics support **(bypassing CDP)**, you need to add the `ga4` **attribute** and put your measurement ID as the value:

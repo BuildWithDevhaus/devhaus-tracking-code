@@ -1,3 +1,5 @@
+[<< Back to README](../../README.md)
+
 ## Enable FullStory support
 
 To enable FullStory support **(bypassing CDP)**, you need to add the `fullstory` **attribute** and put your organisation ID as the value.
