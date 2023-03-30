@@ -1,5 +1,5 @@
 import getCorrectWriteKey from './getCorrectWriteKey';
-import loadConsentManager from './loadConsentManager';
+import loadSegmentConsentManager from './loadSegmentConsentManager';
 
 export default function loadSegmentAnalytics(
   prodWriteKey: string,
@@ -7,7 +7,7 @@ export default function loadSegmentAnalytics(
   devWriteKey?: string
 ) {
   if (enableConsentManager !== null) {
-    loadConsentManager(prodWriteKey, enableConsentManager, devWriteKey);
+    loadSegmentConsentManager(prodWriteKey, enableConsentManager, devWriteKey);
   }
   const analytics = (window.analytics = window.analytics ?? []);
   if (!analytics.initialize)
