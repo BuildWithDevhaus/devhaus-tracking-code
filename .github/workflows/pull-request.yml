@@ -1,0 +1,73 @@
+name: Build on Pull Request
+
+on:
+  pull_request:
+    branches: [ "master", "main", "staging" ]
+
+jobs:
+  check-commit-message:
+    name: Check commit message
+    runs-on: ubuntu-latest
+    outputs:
+      head-commit-message: ${{ steps.get_head_commit_message.outputs.headCommitMsg }}
+    steps:
+      - name: Get repo
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Print head git commit message
+        id: get_head_commit_message
+        run: echo "::set-output name=headCommitMsg::$(git show -s --format=%s)"
+
+  build:
+    needs: check-commit-message
+    if: ${{ !contains(needs.check-commit-message.outputs.head-commit-message, '[Automated] Add build files result') }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 0
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm install, build
+        run: |
+          git init
+          git checkout -b ${{ github.head_ref }}
+          git config user.email "BuildWithDevhaus@users.noreply.github.com"
+          git config user.name "BuildWithDevhaus"
+          npm i --force
+          npm run build
+          git add --all
+          git commit --allow-empty -m "[Automated] Add build files result"
+          git remote add dev https://${{ secrets.PUBLISH_KEY }}@github.com/${{ github.repository }}
+          git push dev ${{ github.head_ref }}
+        env:
+          CI: true
+
+  add-comment:
+    needs: check-commit-message
+    if: ${{ contains(needs.check-commit-message.outputs.head-commit-message, '[Automated] Add build files result') }}
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            Here's the script to test with on your webflow:
+            ```html
+            <script
+              id="devhaus-tracking-code"
+              defer
+              src="https://raw.githubusercontent.com/${{ github.repository }}/${{ github.head_ref }}/dist/index.js?sha=${{ github.sha }}"
+              segment-prod-write-key="YOUR_PRODUCTION_SOURCE_WRITE_KEY"
+              segment-dev-write-key="YOUR_STAGING_SOURCE_WRITE_KEY"
+            ></script>
+            
+            ```
+            - [Usage](https://github.com/BuildWithDevhaus/devhaus-tracking-code/blob/master/docs/usage.md)
