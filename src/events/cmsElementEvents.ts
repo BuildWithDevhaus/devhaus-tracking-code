@@ -15,7 +15,7 @@ export default function cmsElementEvent(
     const elem = allElements[i] as HTMLElement;
 
     const name = elem.dataset?.['propertyName'];
-    const value = elem.dataset?.['propertyValue'] ?? 'innerHTML';
+    const value = elem.dataset?.['propertyValue'] ?? 'innerText';
     properties[resolvePropertyName(name)] = resolvePropertyValue(elem, name, value, pageviewArray);
   }
 }

@@ -26,7 +26,7 @@ export default function bodyTagEvents(
   pageviewElements.forEach((pel) => {
     const pageviewElement = pel as HTMLElement;
     const propertyName = pageviewElement.dataset?.['pageviewPropertyName'];
-    const propertyValue = pageviewElement.dataset?.['pageviewPropertyValue'] ?? 'innerHTML';
+    const propertyValue = pageviewElement.dataset?.['pageviewPropertyValue'] ?? 'innerText';
     const resolvedPropertyName = resolvePropertyName(propertyName);
 
     if (properties[resolvePropertyName(propertyName)]) {

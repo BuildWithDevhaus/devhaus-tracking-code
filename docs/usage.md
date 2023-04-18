@@ -100,9 +100,9 @@ REMEMBER:
 
 There are 6 types of properties:
 
-- `innerHTML`: You’re grabbing an `innerHTML` value from an existing HTML element.
-  - [See the documentation regarding `Element.innerHTML` for more details.](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)
-- `innerHTML-parseInt`: Similar to the `innerHTML` above, but you’re typecasting the value from string to integer.
+- `innerText`: You’re grabbing an `innerText` value from an existing HTML element.
+  - [See the documentation regarding `Element.innerText` for more details.](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerText)
+- `innerText-parseInt`: Similar to the `innerText` above, but you’re typecasting the value from string to integer.
   - [See this documentation about `parseInt` for more details.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt)
 - `boolean:true`: This adds a `true` boolean value inside your property
 - `boolean:false`: This adds a `false` boolean value inside your property
@@ -139,7 +139,7 @@ The way that you define a property inside a link `<a>` like this:
 
 If you somehow skipped a number, let’s say you have `data-property-name1`, `data-roperty-name3`, `data-property-name4`, but skipped `data-property-name2`, **only the non-skipped ones will be read;** so only `data-property-name1` will be registered.
 
-Remember that you can replace the value to `innerHTML`, `innerHTML-parseInt`, `boolean:true` , `boolean:false` , or `grabPageview` as well.
+Remember that you can replace the value to `innerText`, `innerText-parseInt`, `boolean:true` , `boolean:false` , or `grabPageview` as well.
 
 ### 2.2.1. BONUS: The `data-property-name` Shorthand Syntax
 
@@ -150,21 +150,21 @@ Instead of writing both `data-property-name1` and `data-property-value1`, you ca
 <button
   data-event="Button Clicked"
   data-property-name1="some_property"
-  data-property-value1="innerHTML"
+  data-property-value1="innerText"
 >
   Click Me
 </button>
 
 <!-- Do this instead -->
-<button data-event="Button Clicked" data-property-name1="some_property:innerHTML">Click Me</button>
+<button data-event="Button Clicked" data-property-name1="some_property:innerText">Click Me</button>
 ```
 
 These are the property values that is supported with this syntax
 
 | Property Value                                                      | Supported? |
 | ------------------------------------------------------------------- | ---------- |
-| innerHTML                                                           | ✅         |
-| innerHTML-parseInt                                                  | ✅         |
+| innerText                                                           | ✅         |
+| innerText-parseInt                                                  | ✅         |
 | boolean:true                                                        | ❌         |
 | boolean:false                                                       | ❌         |
 | grabPageview                                                        | ✅         |
@@ -220,7 +220,7 @@ That’s where `data-pageview-property-name` steps in. Here’s how to use the p
 
 1. Optionally, you can also add `data-pageview-property-value` to the property as well. Let’s say it’s a `<p>` tag that denotes the duration of the Blog Post, let’s name the **`data-pageview-property-name`** for this `<p>` as `blog_post_duration`.
 
-   By default, If you omit `data-pageview-property-value` Custom Attribute, the value would be `innerHTML`.
+   By default, If you omit `data-pageview-property-value` Custom Attribute, the value would be `innerText`.
 
    This is how the HTML looks like now:
 
@@ -228,21 +228,21 @@ That’s where `data-pageview-property-name` steps in. Here’s how to use the p
    <h1 data-pageview-property-name="blog_post_title">This is a blogpost title.</h1>
    <p
      data-pageview-property-name="blog_post_duration"
-     data-pageview-property-value="innerHTML-parseInt"
+     data-pageview-property-value="innerText-parseInt"
    >
      5
    </p>
    <p>Minutes</p>
    ```
 
-   Remember that you can replace `data-pageview-property-value` to `innerHTML`, `innerHTML-parseInt` ,`boolean:true` ,`boolean:false` ,`grabPageview` or static values.
+   Remember that you can replace `data-pageview-property-value` to `innerText`, `innerText-parseInt` ,`boolean:true` ,`boolean:false` ,`grabPageview` or static values.
 
 2. When the user loads the Blog Post, the Blog Post Viewed will be triggered. In Segment, now the event will look like this:
 
 ```jsx
 analytics.track('Blog Post Viewed', {
   blog_post_title: 'This is a blog post title.',
-  blog_post_duration: 5, //this is now an integer because of innerHTML-parseInt
+  blog_post_duration: 5, //this is now an integer because of innerText-parseInt
   metadata: {
     utm_source: 'direct',
     utm_medium: null,
@@ -255,8 +255,8 @@ analytics.track('Blog Post Viewed', {
 
 | Property Value     | Supported?                                                          |
 | ------------------ | ------------------------------------------------------------------- |
-| innerHTML          | ✅                                                                  |
-| innerHTML-parseInt | ✅                                                                  |
+| innerText          | ✅                                                                  |
+| innerText-parseInt | ✅                                                                  |
 | boolean:true       | ✅                                                                  |
 | boolean:false      | ✅                                                                  |
 | grabPageview       | ❌ (This will cause infinite loop in your Webflow. DO NOT USE THIS) |
@@ -298,7 +298,7 @@ so now the button looks like this:
 <h1 data-pageview-property-name="blog_post_title">This is a blogpost title.</h1>
 <p
   data-pageview-property-name="blog_post_duration"
-  data-pageview-property-value="innerHTML-parseInt"
+  data-pageview-property-value="innerText-parseInt"
 >
   5
 </p>
@@ -556,7 +556,7 @@ From the example of previous sections, we want to track `product_name`, `product
   <p
     class="product-price"
     data-property-name="product_price"
-    data-property-value="innerHTML-parseInt"
+    data-property-value="innerText-parseInt"
   >
     50
   </p>
@@ -586,7 +586,7 @@ analytics.track('Product Selected', {
 });
 ```
 
-By default, **If you omit `data-property-value` Custom Attribute inside an element wrapped in a `data-wrapper`-defined wrapper is `innerHTML`**.
+By default, **If you omit `data-property-value` Custom Attribute inside an element wrapped in a `data-wrapper`-defined wrapper is `innerText`**.
 
 # Further Readings
 

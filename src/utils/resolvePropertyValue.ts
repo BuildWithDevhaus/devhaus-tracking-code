@@ -19,10 +19,10 @@ export const resolvePropertyValue = (
   //example: array[{propertyName1: propertyValue1, propertyName2: propertyValue2}, {propertyName1: propertyValue1, propertyName2: propertyValue2}]
   if (propertyName) {
     switch (propertyValue) {
-      case 'innerHTML':
-        return currentElement?.innerHTML;
-      case 'innerHTML-parseInt':
-        return parseInt(currentElement.innerHTML);
+      case 'innerText':
+        return currentElement?.innerText;
+      case 'innerText-parseInt':
+        return parseInt(currentElement.innerText);
       case 'url':
         return window.location.href.split('?')[0];
       case 'boolean:true':
@@ -34,7 +34,7 @@ export const resolvePropertyValue = (
           (elem) => (elem as HTMLElement)?.dataset?.['pageviewPropertyName'] === propertyName
         ) as HTMLElement;
         const pageviewElemValue =
-          grabbedPageviewElem?.dataset?.['pageviewPropertyValue'] ?? 'innerHTML';
+          grabbedPageviewElem?.dataset?.['pageviewPropertyValue'] ?? 'innerText';
         return resolvePropertyValue(
           grabbedPageviewElem,
           propertyName,
@@ -47,7 +47,7 @@ export const resolvePropertyValue = (
         if (grabbedAHrefElem?.includes('?')) {
           grabbedAHrefElem = grabbedAHrefElem?.split('?')[0];
         }
-        return grabbedAHrefElem ?? currentElement?.innerHTML ?? '';
+        return grabbedAHrefElem ?? currentElement?.innerText ?? '';
       default:
         return propertyValue;
     }
