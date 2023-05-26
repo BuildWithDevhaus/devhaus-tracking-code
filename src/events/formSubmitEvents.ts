@@ -11,7 +11,7 @@ export default function formSubmitEvent(
     const formElement = fe as HTMLInputElement;
     if (formElement !== element) {
       const name = formElement?.id.toLowerCase();
-      const value = formElement?.value;
+      const value = formElement?.type === 'checkbox' ? formElement?.checked : formElement?.value;
       const isPII = formElement?.dataset?.['identify'] === 'true';
       const isBothPIIAndTrack = formElement?.dataset?.['bothIdentifyAndTrack'] === 'true';
       const isIgnored = formElement?.dataset?.['ignore'] === 'true';
