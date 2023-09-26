@@ -4,10 +4,12 @@ import loadSegmentConsentManager from './loadSegmentConsentManager';
 export default function loadSegmentAnalytics(
   prodWriteKey: string,
   enableConsentManager: 'true' | 'false' | 'eu' | null = 'eu',
-  devWriteKey?: string
+  devWriteKey?: string,
+  stagingDomain?: string,
+  productionDomain?: string
 ) {
   if (enableConsentManager !== null) {
-    loadSegmentConsentManager(prodWriteKey, enableConsentManager, devWriteKey);
+    loadSegmentConsentManager(prodWriteKey, enableConsentManager, devWriteKey, stagingDomain, productionDomain);
   }
   const analytics = (window.analytics = window.analytics ?? []);
   if (!analytics.initialize)

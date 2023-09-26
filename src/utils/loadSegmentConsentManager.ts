@@ -3,7 +3,9 @@ import getCorrectWriteKey from './getCorrectWriteKey';
 export default function loadSegmentConsentManager(
   prodWriteKey: string,
   alwaysRequireConsent: 'true' | 'false' | 'eu' = 'eu',
-  devWriteKey?: string
+  devWriteKey?: string,
+  stagingDomain?: string,
+  productionDomain?: string
 ) {
   if (alwaysRequireConsent === 'false') {
     //check if there is any script tag that has src includes consent-manager.js
@@ -45,7 +47,7 @@ export default function loadSegmentConsentManager(
 
       return {
         container: '#consent-manager',
-        writeKey: getCorrectWriteKey(prodWriteKey, prodWriteKey, devWriteKey),
+        writeKey: getCorrectWriteKey(prodWriteKey, prodWriteKey, devWriteKey, stagingDomain, productionDomain),
         bannerContent: bannerContent,
         bannerSubContent: bannerSubContent,
         preferencesDialogTitle: 'Website Data Collection Preferences',
