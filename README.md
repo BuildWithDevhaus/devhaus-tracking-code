@@ -44,6 +44,8 @@ The section below describes the process of installing and configuring the Devhau
   src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@latest/dist/index.js"
   segment-prod-write-key="YOUR_PRODUCTION_SOURCE_WRITE_KEY"
   segment-dev-write-key="YOUR_STAGING_SOURCE_WRITE_KEY"
+  production-domain="example.com"
+  staging-domain="example.webflow.io"
 ></script>
 ```
 

@@ -1,3 +1,3 @@
-export default function isDevEnvironment() {
-  return window.location.hostname.includes('webflow.io');
+export default function isDevEnvironment(stagingDomain?: string) {
+  return window.location.hostname.includes(stagingDomain || 'webflow.io');
 }
