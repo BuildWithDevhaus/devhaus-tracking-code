@@ -165,6 +165,10 @@ These are the property values that is supported with this syntax
 | ------------------------------------------------------------------- | ---------- |
 | innerHTML                                                           | ✅         |
 | innerHTML-parseInt                                                  | ✅         |
+| innerHTML-parseFloat                                                | ✅         |
+| innerText                                                           | ✅         |
+| innerText-parseInt                                                  | ✅         |
+| innerText-parseFloat                                                | ✅         |
 | boolean:true                                                        | ❌         |
 | boolean:false                                                       | ❌         |
 | grabPageview                                                        | ✅         |
@@ -253,14 +257,18 @@ analytics.track('Blog Post Viewed', {
 
 ### 2.4.1. `data-pageview-property-value` Compatibility chart
 
-| Property Value     | Supported?                                                          |
-| ------------------ | ------------------------------------------------------------------- |
-| innerHTML          | ✅                                                                  |
-| innerHTML-parseInt | ✅                                                                  |
-| boolean:true       | ✅                                                                  |
-| boolean:false      | ✅                                                                  |
-| grabPageview       | ❌ (This will cause infinite loop in your Webflow. DO NOT USE THIS) |
-| Static Values      | ✅                                                                  |
+| Property Value       | Supported?                                                          |
+| -------------------- | ------------------------------------------------------------------- |
+| innerHTML            | ✅                                                                  |
+| innerHTML-parseInt   | ✅                                                                  |
+| innerHTML-parseFloat | ✅                                                                  |
+| innerText            | ✅                                                                  |
+| innerText-parseInt   | ✅                                                                  |
+| innerText-parseFloat | ✅                                                                  |
+| boolean:true         | ✅                                                                  |
+| boolean:false        | ✅                                                                  |
+| grabPageview         | ❌ (This will cause infinite loop in your Webflow. DO NOT USE THIS) |
+| Static Values        | ✅                                                                  |
 
 ### 2.4.2. The `grabPageview` property value
 
