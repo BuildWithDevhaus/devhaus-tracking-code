@@ -45,6 +45,6 @@ export default function nonBodyTagEvents(
       }
     };
     element.addEventListener('click', clickEvent);
-    element.addEventListener('auxclick', clickEvent);
+    //element.addEventListener('auxclick', clickEvent); //disabled auxclick events
   }
 }

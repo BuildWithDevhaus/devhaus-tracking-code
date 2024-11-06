@@ -3,7 +3,7 @@ import removePIIsFromData from 'utils/removePIIsFromData';
 import triggerSegmentEvent from 'utils/triggerSegmentEvent';
 import triggerSegmentIdentify from 'utils/triggerSegmentIdentify';
 
-export default function jotformTrackingCode() {
+function jotformTrackingCode() {
   const subParentArray = document.querySelectorAll('iframe');
   try {
     subParentArray.forEach((subParent) => {

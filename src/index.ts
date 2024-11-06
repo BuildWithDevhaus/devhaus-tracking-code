@@ -1,4 +1,4 @@
-import jotformTrackingCode from 'jotformTrackingCode';
+//import jotformTrackingCode from 'jotformTrackingCode';
 import segmentTrackingCode from 'segmentTrackingCode';
 import loadGenericConsentManager from 'utils/generic_consent_manager/loadGenericConsentManager';
 import initiateFullstory from 'utils/initiateFullstory';
@@ -39,5 +39,7 @@ if (!segmentProductionWriteKey) {
   }
 }
 
-segmentTrackingCode();
-window.addEventListener('load', jotformTrackingCode);
+window.addEventListener('DOMContentLoaded', () => {
+  segmentTrackingCode();
+});
+//window.addEventListener('load', jotformTrackingCode); //sunsetting jotform tracking
