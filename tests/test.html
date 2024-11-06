@@ -4,82 +4,190 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Devhaus Tracking Code Test</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        line-height: 1.6;
+        margin: 20px;
+        display: grid;
+        place-items: center;
+      }
+
+      .container {
+        max-width: 800px;
+        width: 100%;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      h1,
+      h2 {
+        color: #333;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input[type='text'],
+      input[type='email'],
+      select,
+      textarea {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      input[type='checkbox'],
+      input[type='radio'] {
+        margin-right: 5px;
+      }
+
+      input[type='range'] {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      input[type='submit'],
+      button {
+        background-color: #4caf50; /* Green */
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+
+      .checkbox-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .radio-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .product-card {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+      }
+    </style>
   </head>
-  <body data-event="Page Viewed" data-property-name1="page_title:innerHTML">
-    <h1>Devhaus Tracking Code Test Page</h1>
+  <body data-event="Example Page Viewed" data-property-name1="page_title:Example">
+    <div class="container">
+      <h1>Devhaus Tracking Code Test Page</h1>
 
-    <a href="#" data-event="Link Clicked" data-property-name1="link_text:innerHTML">Click Me</a>
+      <a href="#" data-event="Link Clicked" data-property-name1="link_text:innerHTML">Click Me</a>
 
-    <h2>Form Submission</h2>
-    <form id="myForm">
-      <label for="email">Email:</label><br />
-      <input
-        type="email"
-        id="email"
-        name="email"
-        data-identify="true"
-        data-both-identify-and-track="true"
-      /><br /><br />
+      <h2>Form Submission</h2>
+      <form id="myForm">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          data-identify="true"
+          value="johnprice@activision.net"
+        />
 
-      <label for="firstName">First Name:</label><br />
-      <input type="text" id="firstName" name="firstName" data-identify="true" /><br /><br />
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" data-identify="true" value="John" />
 
-      <label for="lastName">Last Name:</label><br />
-      <input type="text" id="lastName" name="lastName" data-identify="true" /><br /><br />
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" data-identify="true" value="Price" />
 
-      <label for="country">Country:</label><br />
-      <select id="country" name="country">
-        <option value="us">United States</option>
-        <option value="ca">Canada</option>
-        <option value="uk">United Kingdom</option></select
-      ><br /><br />
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+          <option value="us">United States</option>
+          <option value="ca">Canada</option>
+          <option value="uk">United Kingdom</option>
+        </select>
 
-      <label>Favorite Colors (Checkboxes):</label><br />
-      <input type="checkbox" id="color_red" name="favorite_colors[]" value="red" />
-      <label for="color_red">Red</label><br />
-      <input type="checkbox" id="color_green" name="favorite_colors[]" value="green" />
-      <label for="color_green">Green</label><br />
-      <input type="checkbox" id="color_blue" name="favorite_colors[]" value="blue" />
-      <label for="color_blue">Blue</label><br /><br />
+        <label>Favorite Colors (Checkboxes):</label>
+        <div class="checkbox-group">
+          <input type="checkbox" id="color" name="favorite_colors" value="red" />
+          <label for="color_red" style="color: red">Red</label>
+          <input type="checkbox" id="color" name="favorite_colors" value="green" />
+          <label for="color_green" style="color: green">Green</label>
+          <input type="checkbox" id="color" name="favorite_colors" value="blue" />
+          <label for="color_blue" style="color: blue">Blue</label>
+        </div>
 
-      <label>Preferred Contact Method (Radio):</label><br />
-      <input type="radio" id="contact_email" name="contact_method" value="email" />
-      <label for="contact_email">Email</label><br />
-      <input type="radio" id="contact_phone" name="contact_method" value="phone" />
-      <label for="contact_phone">Phone</label><br /><br />
+        <label>Preferred Contact Method (Radio):</label>
+        <div class="radio-group">
+          <input type="radio" id="contact" name="contact_method" value="email" />
+          <label for="contact_email">Email</label>
+          <input type="radio" id="contact" name="contact_method" value="phone" />
+          <label for="contact_phone">Phone</label>
+        </div>
 
-      <label for="satisfaction">Satisfaction (1-7):</label><br />
-      <input type="range" id="satisfaction" name="satisfaction" min="1" max="7" /><br /><br />
+        <label for="satisfaction">Satisfaction (1-7):</label>
+        <input type="range" id="satisfaction" name="satisfaction" min="1" max="7" />
 
-      <label for="message">Message (ignored):</label><br />
-      <textarea id="message" name="message" data-ignore="true"></textarea><br /><br />
+        <label for="message">Message (ignored):</label>
+        <textarea
+          id="message"
+          name="message"
+          data-ignore="true"
+          value="This is some pre-filled message"
+        ></textarea>
 
-      <input type="submit" value="Submit" data-event="Form Submitted" data-submit-button="true" />
-    </form>
+        <input
+          type="submit"
+          value="Submit"
+          data-event="Example Form Submitted"
+          data-submit-button="true"
+        />
+      </form>
 
-    <h2>CMS/Repeated Items (Simulated)</h2>
-    <div data-wrapper="true">
-      <div class="product-card">
-        <h3 data-property-name="product_name">Product 1</h3>
-        <p data-property-name="product_description">Description of product 1</p>
-        <button data-event="Product Clicked" data-cms="true">View Product 1</button>
+      <h2>CMS/Repeated Items (Simulated)</h2>
+      <div data-wrapper="true">
+        <div class="product-card">
+          <h3 data-property-name="product_name">Product 1</h3>
+          <p data-property-name="product_description">Description of product 1</p>
+          <button data-event="Product Clicked" data-cms="true">View Product 1</button>
+        </div>
+
+        <div class="product-card">
+          <h3 data-property-name="product_name">Product 2</h3>
+          <p data-property-name="product_description">Description of product 2</p>
+          <button data-event="Product Clicked" data-cms="true">View Product 2</button>
+        </div>
       </div>
 
-      <div class="product-card">
-        <h3 data-property-name="product_name">Product 2</h3>
-        <p data-property-name="product_description">Description of product 2</p>
-        <button data-event="Product Clicked" data-cms="true">View Product 2</button>
-      </div>
+      <!-- Devhaus Tracking Code Snippet (replace with your actual snippet) -->
+      <!-- prevent default form submission -->
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          document.querySelectorAll('form').forEach((form) => {
+            form.addEventListener('submit', (e) => {
+              e.preventDefault();
+            });
+          });
+        });
+      </script>
+      <script id="devhaus-tracking-code" enable-consent-manager="false" is-dev="true"></script>
+      <script src="http://localhost:3000/index.js"></script>
     </div>
-
-    <!-- Devhaus Tracking Code Snippet (replace with your actual snippet) -->
-    <script
-      id="devhaus-tracking-code"
-      segment-prod-write-key="YOUR_SEGMENT_WRITE_KEY"
-      fullstory="YOUR_FULLSTORY_ORG_ID"
-      ga4="YOUR_GA4_MEASUREMENT_ID"
-      enable-consent-manager="false"
-    ></script>
-    <script src="YOUR_DEVHAUS_TRACKING_CODE_URL"></script>
   </body>
 </html>

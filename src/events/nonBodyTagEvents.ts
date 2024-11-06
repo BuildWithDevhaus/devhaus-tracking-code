@@ -10,7 +10,8 @@ import formSubmitEvent from './formSubmitEvents';
 export default function nonBodyTagEvents(
   eventName: string,
   element: HTMLElement,
-  pageviewElements: NodeListOf<Element>
+  pageviewElements: NodeListOf<Element>,
+  isDev = false
 ) {
   const pageviewArray = Array.from(pageviewElements) as HTMLElement[];
   const properties: GenericObject = {};
@@ -39,9 +40,10 @@ export default function nonBodyTagEvents(
       if (element.dataset?.['cms'] === 'true') {
         cmsElementEvent(element, properties, pageviewElements);
       }
-      triggerSegmentEvent(eventName, properties);
+      triggerSegmentEvent(eventName, properties, isDev);
+
       if (Object.keys(identifyProperties).length > 0) {
-        triggerSegmentIdentify(identifyProperties);
+        triggerSegmentIdentify(identifyProperties, isDev);
       }
     };
     element.addEventListener('click', clickEvent);

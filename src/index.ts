@@ -14,6 +14,7 @@ const productionDomain = scriptTag?.getAttribute('production-domain') ?? undefin
 const enableConsentManager = scriptTag?.getAttribute('enable-consent-manager') ?? 'eu';
 const ga4 = scriptTag?.getAttribute('ga4') ?? 'false';
 const fullstory = scriptTag?.getAttribute('fullstory') ?? 'false';
+const isDev = scriptTag?.getAttribute('is-dev') ?? false;
 
 if (segmentProductionWriteKey) {
   loadSegmentAnalytics(
@@ -40,6 +41,6 @@ if (!segmentProductionWriteKey) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  segmentTrackingCode();
+  segmentTrackingCode(isDev === 'true' ? true : false);
 });
 //window.addEventListener('load', jotformTrackingCode); //sunsetting jotform tracking

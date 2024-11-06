@@ -19,26 +19,30 @@ const defaultSettings = {
   target: production ? 'es2017' : 'esnext',
   entryPoints,
   footer: {
-    js: '//Copyright (c) 2023 Devhaus Pte Ltd',
+    js: '//Copyright (c) 2024 Devhaus Pte Ltd',
   },
 };
+let ctx = await esbuild.context(defaultSettings);
 
 // Files building
 if (production) {
-  esbuild.build(defaultSettings);
+  await esbuild.build(defaultSettings);
 }
 
-// Files serving
+// Files watching if in dev mode
 else {
-  esbuild
-    .serve(
-      {
-        servedir: buildDirectory,
-        port: 3000,
-      },
-      defaultSettings
-    )
-    .then((server) => {
-      console.log(`Serving at http://localhost:${server.port}`);
-    });
+  let { host, port } = await ctx.serve({ servedir: buildDirectory, port: 3000 });
+  console.log(`Serving at ${host}:${port}`);
+
+  // esbuild
+  //   .watch(
+  //     {
+  //       servedir: buildDirectory,
+  //       port: 3000,
+  //     },
+  //     defaultSettings
+  //   )
+  //   .then((server) => {
+  //     console.log(`Serving at http://localhost:${server.port}`);
+  //   });
 }
