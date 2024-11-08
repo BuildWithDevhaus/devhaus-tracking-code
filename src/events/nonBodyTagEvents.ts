@@ -31,8 +31,9 @@ export default function nonBodyTagEvents(
     }
     const clickEvent = () => {
       if (
-        (element.tagName === 'INPUT' && (element as HTMLInputElement).type === 'submit') ||
-        element.dataset?.['submitButton'] === 'true'
+        // (element.tagName === 'INPUT' && (element as HTMLInputElement).type === 'submit') ||
+        // element.dataset?.['submitButton'] === 'true' ||
+        element.tagName === 'FORM'
       ) {
         formSubmitEvent(element, properties, identifyProperties);
       }

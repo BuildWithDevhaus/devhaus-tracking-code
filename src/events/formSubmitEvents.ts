@@ -5,26 +5,25 @@ export default function formSubmitEvent(
   properties: GenericObject,
   identifyProperties: GenericObject
 ) {
-  const form = element.closest('form');
+  const form = (element.tagName === 'FORM' ? element : element?.parentElement) as HTMLFormElement;
   const formElements = (form?.elements as HTMLFormControlsCollection) ?? [];
   [...formElements].forEach((fe) => {
     const formElement = fe as HTMLInputElement;
     if (formElement !== element) {
-      const id = formElement?.id.toLowerCase();
+      const name = formElement?.name.toLowerCase();
       //const value = formElement?.type === 'checkbox' ? formElement?.checked : formElement?.value;
       //value should be handling all types of form inputs
       const value = formElement?.value;
-      const isPII = formElement?.dataset?.['identify'] === 'true';
-      const isBothPIIAndTrack = formElement?.dataset?.['bothIdentifyAndTrack'] === 'true';
+      const isIdentify = formElement?.dataset?.['identify'] === 'true';
+      const isBothIdentifyAndTrack = formElement?.dataset?.['bothIdentifyAndTrack'] === 'true';
+      const isTrack = formElement?.dataset?.['track'] === 'true';
       const isIgnored = formElement?.dataset?.['ignore'] === 'true';
-      if (id && value && !isIgnored) {
-        if (isPII || isBothPIIAndTrack) {
-          identifyProperties[id] = value;
-          if (isBothPIIAndTrack) {
-            properties[id] = value;
-          }
-        } else {
-          properties[id] = value;
+      if (name && value && !isIgnored) {
+        if (isIdentify || isBothIdentifyAndTrack) {
+          identifyProperties[name] = value;
+        }
+        if (isTrack || isBothIdentifyAndTrack) {
+          properties[name] = value;
         }
       }
     }

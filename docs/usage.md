@@ -18,6 +18,7 @@
     - [2.4.1. `data-pageview-property-value` Compatibility chart](#241-data-pageview-property-value-compatibility-chart)
     - [2.4.2. The `grabPageview` property value](#242-the-grabpageview-property-value)
   - [2.5. Form Submission Events](#25-form-submission-events)
+    - [⚠️ Starting v2.3.0, you no longer need to add `data-ignore="true"` to ignore a form field. Instead, you can simply ignore the form field by not adding either `data-identify` or `data-track` or `data-both-identify-and-track` Custom Attributes.](#️-starting-v230-you-no-longer-need-to-add-data-ignoretrue-to-ignore-a-form-field-instead-you-can-simply-ignore-the-form-field-by-not-adding-either-data-identify-or-data-track-or-data-both-identify-and-track-custom-attributes)
   - [2.6. CMS Items (or Repeated Items)](#26-cms-items-or-repeated-items)
     - [2.6.1. `data-cms` Custom Attribute](#261-data-cms-custom-attribute)
     - [2.6.2. `data-wrapper` Custom Attribute](#262-data-wrapper-custom-attribute)
@@ -348,10 +349,10 @@ analytics.track('Featured Product Clicked', {
 
 ## 2.5. Form Submission Events
 
-Add a `data-event` property to a **Submit Button inside a `<form>`**. This is your event name. Optionally, you can add `data-submit-button` Custom Attribute inside the submit button to force the Code Snippet to mark the submit button.
+Add a `data-event` property to a `<form>` tag. This is your event name. Optionally, you can add `data-submit-button` Custom Attribute inside the submit button to force the Code Snippet to mark the submit button.
 The code snippet will detect which `<form>` this button belongs and pulls **all the form values inside.**
 
-Then, **Make sure you put an `id` inside every form fields that you want to track. This will later become your property name.** This is a super important step since you want
+Then, **Make sure you put an `name` inside every form fields that you want to track. This will later become your property name.** This is a super important step since you want
 
 **If you have a PII (Personally-Identifiable Information) data in your forms, you need to mark them as inside an Identify event.**. In order to mark your PII fields as identifiable:
 
@@ -381,6 +382,8 @@ Value: `true`
 <textarea id="message" data-ignore="true" />
 ```
 
+### ⚠️ Starting v2.3.0, you no longer need to add `data-ignore="true"` to ignore a form field. Instead, you can simply ignore the form field by not adding either `data-identify` or `data-track` or `data-both-identify-and-track` Custom Attributes.
+
 In a case where you need a particular form field to be both an Identify and a Track event, you need to add this property to that form field
 
 **Add this property to tag a field as both Identify and Track property:**
@@ -389,6 +392,16 @@ Value: `true`
 
 ```html
 <input type="number" id="company_size" data-both-identify-and-track="true" />
+```
+
+In a case where you need a particular form field to only track, you need to add this property to that form field
+
+**Add this property to tag a field as only Track property:**
+Name: `data-track`
+Value: `true`
+
+```html
+<input type="number" id="company_size" data-track="true" />
 ```
 
 Lastly, we recommend you to tag the submit button using `data-submit-button="true"` just in case the Code snippet doesn't catch that the button is a submit button.
@@ -405,47 +418,51 @@ Lastly, we recommend you to tag the submit button using `data-submit-button="tru
 Combining all of the above, here’s an example form to make everything clear; pay attention on where the calls of `data-identify`, `data-both-identify-and-track`, and `data-ignore`, and `data-submit-button`:
 
 ```html
-<form id="example-form">
+<form id="example-form" data-event="Form Submitted">
     <label for="email">Email Address</label>
         <input
             type="email"
             id="email"
+            name="email"
             data-identify="true"
         />
     <label for="first_name">First Name</label>
         <input
             type="text"
             id="first_name"
+            name="first_name"
             data-identify="true"
         />
     <label for="last_name">Last Name</label>
         <input
             type="text"
             id="last_name"
+            name="last_name"
             data-identify="true"
         />
     <label for="company_name">Company Name</label>
         <input
             type="text"
             id="company_name"
-            data-both-identify-and-track="true"
+            name="company_name"
+            data-identify="true"
+            data-track="true"
         />
     <label for="interest">Interest</label>
         <input
             type="text"
+            name="interest"
             id="interest"
+            data-track="true"
         />
     <label for="message">Type your message below</label>
         <textarea
             name="message"
-            id="message"
             cols="30"
             rows="10"
-            data-ignore="true"
         ></textarea>
     <input
         type="submit"
-        data-event="Form Submitted"
         data-submit-button="true"
     >Submit
     </input>
