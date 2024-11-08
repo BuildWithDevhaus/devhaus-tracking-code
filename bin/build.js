@@ -26,7 +26,9 @@ let ctx = await esbuild.context(defaultSettings);
 
 // Files building
 if (production) {
-  await esbuild.build(defaultSettings);
+  await ctx.rebuild();
+  console.log('Build complete');
+  ctx.dispose();
 }
 
 // Files watching if in dev mode

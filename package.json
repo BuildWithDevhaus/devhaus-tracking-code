@@ -1,7 +1,7 @@
 {
   "name": "@devhaus/devhaus-tracking-code",
-  "version": "2.0.0",
-  "description": "Developer starter template for Finsweet projects.",
+  "version": "2.3.0",
+  "description": "Devhaus Tracking Code is a snippet that allows you to help track events inside your Webflow website.",
   "homepage": "https://github.com/BuildWithDevhaus/devhaus-tracking-code#readme",
   "license": "ISC",
   "keywords": [],
