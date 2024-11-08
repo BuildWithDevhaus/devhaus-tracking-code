@@ -1,4 +1,4 @@
-import jotformTrackingCode from 'jotformTrackingCode';
+//import jotformTrackingCode from 'jotformTrackingCode';
 import segmentTrackingCode from 'segmentTrackingCode';
 import loadGenericConsentManager from 'utils/generic_consent_manager/loadGenericConsentManager';
 import initiateFullstory from 'utils/initiateFullstory';
@@ -14,6 +14,7 @@ const productionDomain = scriptTag?.getAttribute('production-domain') ?? undefin
 const enableConsentManager = scriptTag?.getAttribute('enable-consent-manager') ?? 'eu';
 const ga4 = scriptTag?.getAttribute('ga4') ?? 'false';
 const fullstory = scriptTag?.getAttribute('fullstory') ?? 'false';
+const isDev = scriptTag?.getAttribute('is-dev') ?? false;
 
 if (segmentProductionWriteKey) {
   loadSegmentAnalytics(
@@ -39,5 +40,7 @@ if (!segmentProductionWriteKey) {
   }
 }
 
-segmentTrackingCode();
-window.addEventListener('load', jotformTrackingCode);
+window.addEventListener('DOMContentLoaded', () => {
+  segmentTrackingCode(isDev === 'true' ? true : false);
+});
+//window.addEventListener('load', jotformTrackingCode); //sunsetting jotform tracking

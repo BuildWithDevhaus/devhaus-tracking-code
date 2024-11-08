@@ -1,14 +1,9 @@
 import triggerFullstoryIdentify from './triggerFullstoryIdentify';
 
-export default function triggerSegmentIdentify(data = {}) {
-  //triggerIdentifyGeo();
-  //console.log(`Segment - Identify`, data);
-
-  triggerFullstoryIdentify(data);
+export default function triggerSegmentIdentify(data = {}, isDev = false) {
+  triggerFullstoryIdentify(data); //dont worry, if fullstory is not enabled, this will not be called
   if (window.analytics) {
-    // if (isDev) console.log(`Segment - Identify`, data);
     window.analytics.identify(data);
-  } else {
-    //console.log(`Segment - Identify`, data);
   }
+  if (isDev) console.log(`Segment - Identify`, data);
 }

@@ -18,6 +18,7 @@
     - [2.4.1. `data-pageview-property-value` Compatibility chart](#241-data-pageview-property-value-compatibility-chart)
     - [2.4.2. The `grabPageview` property value](#242-the-grabpageview-property-value)
   - [2.5. Form Submission Events](#25-form-submission-events)
+    - [2.5.1. Form Field Markers (`data-identify`, `data-track`, `data-both-identify-and-track`, `data-parse-int`, `data-parse-float`)](#251-form-field-markers-data-identify-data-track-data-both-identify-and-track-data-parse-int-data-parse-float)
   - [2.6. CMS Items (or Repeated Items)](#26-cms-items-or-repeated-items)
     - [2.6.1. `data-cms` Custom Attribute](#261-data-cms-custom-attribute)
     - [2.6.2. `data-wrapper` Custom Attribute](#262-data-wrapper-custom-attribute)
@@ -165,6 +166,10 @@ These are the property values that is supported with this syntax
 | ------------------------------------------------------------------- | ---------- |
 | innerHTML                                                           | ✅         |
 | innerHTML-parseInt                                                  | ✅         |
+| innerHTML-parseFloat                                                | ✅         |
+| innerText                                                           | ✅         |
+| innerText-parseInt                                                  | ✅         |
+| innerText-parseFloat                                                | ✅         |
 | boolean:true                                                        | ❌         |
 | boolean:false                                                       | ❌         |
 | grabPageview                                                        | ✅         |
@@ -253,14 +258,18 @@ analytics.track('Blog Post Viewed', {
 
 ### 2.4.1. `data-pageview-property-value` Compatibility chart
 
-| Property Value     | Supported?                                                          |
-| ------------------ | ------------------------------------------------------------------- |
-| innerHTML          | ✅                                                                  |
-| innerHTML-parseInt | ✅                                                                  |
-| boolean:true       | ✅                                                                  |
-| boolean:false      | ✅                                                                  |
-| grabPageview       | ❌ (This will cause infinite loop in your Webflow. DO NOT USE THIS) |
-| Static Values      | ✅                                                                  |
+| Property Value       | Supported?                                                          |
+| -------------------- | ------------------------------------------------------------------- |
+| innerHTML            | ✅                                                                  |
+| innerHTML-parseInt   | ✅                                                                  |
+| innerHTML-parseFloat | ✅                                                                  |
+| innerText            | ✅                                                                  |
+| innerText-parseInt   | ✅                                                                  |
+| innerText-parseFloat | ✅                                                                  |
+| boolean:true         | ✅                                                                  |
+| boolean:false        | ✅                                                                  |
+| grabPageview         | ❌ (This will cause infinite loop in your Webflow. DO NOT USE THIS) |
+| Static Values        | ✅                                                                  |
 
 ### 2.4.2. The `grabPageview` property value
 
@@ -340,12 +349,14 @@ analytics.track('Featured Product Clicked', {
 
 ## 2.5. Form Submission Events
 
-Add a `data-event` property to a **Submit Button inside a `<form>`**. This is your event name. Optionally, you can add `data-submit-button` Custom Attribute inside the submit button to force the Code Snippet to mark the submit button.
+Add a `data-event` property to a `<form>` tag. This is your event name. Optionally, you can add `data-submit-button` Custom Attribute inside the submit button to force the Code Snippet to mark the submit button.
 The code snippet will detect which `<form>` this button belongs and pulls **all the form values inside.**
 
-Then, **Make sure you put an `id` inside every form fields that you want to track. This will later become your property name.** This is a super important step since you want
+Then, **Make sure you put an `name` inside every form fields that you want to track. This will later become your property name.** This is a super important step since you want
 
 **If you have a PII (Personally-Identifiable Information) data in your forms, you need to mark them as inside an Identify event.**. In order to mark your PII fields as identifiable:
+
+### 2.5.1. Form Field Markers (`data-identify`, `data-track`, `data-both-identify-and-track`, `data-parse-int`, `data-parse-float`)
 
 **Add this Custom Attribute to your PII form field:**
 Name: `data-identify`
@@ -360,7 +371,7 @@ Examples of PIIs are:
 - etc.
 
 ```html
-<input type="text" id="first_name" data-identify="true" />
+<input type="text" name="first-name" data-identify="true" />
 ```
 
 Since the default value is pulling all the values inside the form, you may want to ignore some fields inside your event. You can add this property to ignore the field inside your event:
@@ -370,8 +381,10 @@ Name: `data-ignore`
 Value: `true`
 
 ```html
-<textarea id="message" data-ignore="true" />
+<textarea id="message" data-ignore="true" name="message" />
 ```
+
+**⚠️ Starting v2.3.0, you no longer need to add `data-ignore="true"` to ignore a form field. Instead, you can simply ignore the form field by not adding either `data-identify` or `data-track` or `data-both-identify-and-track` Custom Attributes.**
 
 In a case where you need a particular form field to be both an Identify and a Track event, you need to add this property to that form field
 
@@ -380,7 +393,35 @@ Name: `data-both-identify-and-track`
 Value: `true`
 
 ```html
-<input type="number" id="company_size" data-both-identify-and-track="true" />
+<input type="number" name="company_size" data-both-identify-and-track="true" />
+```
+
+In a case where you need a particular form field to only track, you need to add this property to that form field
+
+**Add this property to tag a field as only Track property:**
+Name: `data-track`
+Value: `true`
+
+```html
+<input type="number" name="company_size" data-track="true" />
+```
+
+In a case where you need a certain value to be either an integer or a float, you need to add either `data-parse-int` or `data-parse-float` to the form field.
+
+**Add this property to convert the value to an integer:**
+Name: `data-parse-int`
+Value: `true`
+
+```html
+<input type="number" name="company_size" data-parse-int="true" />
+```
+
+Or, **Add this property to convert the value to a float:**
+Name: `data-parse-float`
+Value: `true`
+
+```html
+<input type="number" name="company_size" data-parse-float="true" />
 ```
 
 Lastly, we recommend you to tag the submit button using `data-submit-button="true"` just in case the Code snippet doesn't catch that the button is a submit button.
@@ -394,50 +435,54 @@ Lastly, we recommend you to tag the submit button using `data-submit-button="tru
 </input>
 ```
 
-Combining all of the above, here’s an example form to make everything clear; pay attention on where the calls of `data-identify`, `data-both-identify-and-track`, and `data-ignore`, and `data-submit-button`:
+Combining all of the above, here’s an example form to make everything clear; pay attention on where the calls of `data-identify`, `data-track`, `data-both-identify-and-track`, `data-ignore`, `data-parse-int`, `data-parse-float`, and `data-submit-button`:
 
 ```html
-<form id="example-form">
+<form id="example-form" data-event="Form Submitted">
     <label for="email">Email Address</label>
         <input
             type="email"
             id="email"
+            name="email"
             data-identify="true"
         />
     <label for="first_name">First Name</label>
         <input
             type="text"
             id="first_name"
+            name="first_name"
             data-identify="true"
         />
     <label for="last_name">Last Name</label>
         <input
             type="text"
             id="last_name"
+            name="last_name"
             data-identify="true"
         />
     <label for="company_name">Company Name</label>
         <input
             type="text"
             id="company_name"
-            data-both-identify-and-track="true"
+            name="company_name"
+            data-identify="true"
+            data-track="true"
         />
     <label for="interest">Interest</label>
         <input
             type="text"
+            name="interest"
             id="interest"
+            data-track="true"
         />
     <label for="message">Type your message below</label>
         <textarea
             name="message"
-            id="message"
             cols="30"
             rows="10"
-            data-ignore="true"
         ></textarea>
     <input
         type="submit"
-        data-event="Form Submitted"
         data-submit-button="true"
     >Submit
     </input>

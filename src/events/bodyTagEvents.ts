@@ -7,10 +7,12 @@ import triggerSegmentEvent from '../utils/triggerSegmentEvent';
 export default function bodyTagEvents(
   eventName: string,
   element: HTMLElement,
-  pageviewElements: NodeListOf<Element>
+  pageviewElements: NodeListOf<Element>,
+  isDev = false
 ) {
   const pageviewArray = Array.from(pageviewElements) as HTMLElement[];
   const properties: GenericObject = {};
+
   for (let i = 1; i <= 100; i++) {
     const propertyName = element.dataset?.['propertyName' + i];
     const propertyValue = element.dataset?.['propertyValue' + i];
@@ -57,5 +59,5 @@ export default function bodyTagEvents(
       }
     }
   });
-  triggerSegmentEvent(eventName, properties);
+  triggerSegmentEvent(eventName, properties, isDev);
 }

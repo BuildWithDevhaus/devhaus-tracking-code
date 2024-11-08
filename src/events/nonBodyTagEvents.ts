@@ -10,7 +10,8 @@ import formSubmitEvent from './formSubmitEvents';
 export default function nonBodyTagEvents(
   eventName: string,
   element: HTMLElement,
-  pageviewElements: NodeListOf<Element>
+  pageviewElements: NodeListOf<Element>,
+  isDev = false
 ) {
   const pageviewArray = Array.from(pageviewElements) as HTMLElement[];
   const properties: GenericObject = {};
@@ -30,8 +31,9 @@ export default function nonBodyTagEvents(
     }
     const clickEvent = () => {
       if (
-        (element.tagName === 'INPUT' && (element as HTMLInputElement).type === 'submit') ||
-        element.dataset?.['submitButton'] === 'true'
+        // (element.tagName === 'INPUT' && (element as HTMLInputElement).type === 'submit') ||
+        // element.dataset?.['submitButton'] === 'true' ||
+        element.tagName === 'FORM'
       ) {
         formSubmitEvent(element, properties, identifyProperties);
       }
@@ -39,12 +41,18 @@ export default function nonBodyTagEvents(
       if (element.dataset?.['cms'] === 'true') {
         cmsElementEvent(element, properties, pageviewElements);
       }
-      triggerSegmentEvent(eventName, properties);
       if (Object.keys(identifyProperties).length > 0) {
-        triggerSegmentIdentify(identifyProperties);
+        triggerSegmentIdentify(identifyProperties, isDev);
       }
+
+      triggerSegmentEvent(eventName, properties, isDev);
     };
-    element.addEventListener('click', clickEvent);
-    element.addEventListener('auxclick', clickEvent);
+    if (element.tagName === 'FORM')
+      element.addEventListener('submit', (e) => {
+        //e.preventDefault();
+        clickEvent();
+      });
+    else element.addEventListener('click', clickEvent);
+    //element.addEventListener('auxclick', clickEvent); //disabled auxclick events
   }
 }

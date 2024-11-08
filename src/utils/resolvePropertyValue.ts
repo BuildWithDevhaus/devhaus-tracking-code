@@ -23,6 +23,14 @@ export const resolvePropertyValue = (
         return currentElement?.innerHTML;
       case 'innerHTML-parseInt':
         return parseInt(currentElement.innerHTML);
+      case 'innerHTML-parseFloat':
+        return parseFloat(currentElement.innerHTML);
+      case 'innerText':
+        return currentElement?.innerText;
+      case 'innerText-parseInt':
+        return parseInt(currentElement.innerText);
+      case 'innerText-parseFloat':
+        return parseFloat(currentElement.innerText);
       case 'url':
         return window.location.href.split('?')[0];
       case 'boolean:true':

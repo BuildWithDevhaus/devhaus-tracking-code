@@ -47,7 +47,13 @@ export default function loadSegmentConsentManager(
 
       return {
         container: '#consent-manager',
-        writeKey: getCorrectWriteKey(prodWriteKey, prodWriteKey, devWriteKey, stagingDomain, productionDomain),
+        writeKey: getCorrectWriteKey(
+          prodWriteKey,
+          prodWriteKey,
+          devWriteKey,
+          stagingDomain,
+          productionDomain
+        ),
         bannerContent: bannerContent,
         bannerSubContent: bannerSubContent,
         preferencesDialogTitle: 'Website Data Collection Preferences',

@@ -1,7 +1,7 @@
 {
   "name": "@devhaus/devhaus-tracking-code",
-  "version": "2.0.0",
-  "description": "Developer starter template for Finsweet projects.",
+  "version": "2.3.0",
+  "description": "Devhaus Tracking Code is a snippet that allows you to help track events inside your Webflow website.",
   "homepage": "https://github.com/BuildWithDevhaus/devhaus-tracking-code#readme",
   "license": "ISC",
   "keywords": [],
@@ -45,7 +45,6 @@
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "cross-env": "^7.0.3",
-    "esbuild": "^0.15.1",
     "eslint": "^8.21.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -56,6 +55,7 @@
     "@finsweet/ts-utils": "^0.33.1",
     "@fullstory/browser": "^1.7.0",
     "cookie": "^0.5.0",
+    "esbuild": "^0.24.0",
     "uuid": "^9.0.0"
   }
 }

@@ -4,7 +4,7 @@ import triggerGA4Event from './triggerGA4Event';
 
 //import triggerIdentifyGeo from './triggerIdentifyGeo';
 
-export default function triggerSegmentEvent(eventName = '', data = {}) {
+export default function triggerSegmentEvent(eventName = '', data = {}, isDev = false) {
   //triggerIdentifyGeo();
   const dataSend = {
     ...data,
@@ -15,9 +15,10 @@ export default function triggerSegmentEvent(eventName = '', data = {}) {
     },
   };
 
+  if (isDev) {
+    console.log(`Segment - Event`, eventName, dataSend);
+  }
   triggerGA4Event(eventName, data);
-
-  //console.log('triggerSegmentEvent', eventName, dataSend);\
   triggerFullstoryEvent(eventName, dataSend);
   if (window?.analytics) {
     //console.log(window.analytics);
