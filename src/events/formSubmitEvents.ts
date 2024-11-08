@@ -12,18 +12,20 @@ export default function formSubmitEvent(
     const formElement = fe as HTMLInputElement;
     if (formElement !== element) {
       const name = formElement?.name.toLowerCase();
-      //const value = formElement?.type === 'checkbox' ? formElement?.checked : formElement?.value;
       //value should be handling all types of form inputs
-      let value: string | number = formElement?.value;
+      let value: string | number | undefined;
+      if (formElement?.type === 'checkbox' && !formElement.checked) value = undefined;
+      else if (formElement?.type === 'radio' && !formElement.checked) value = undefined;
+      else value = formElement?.value;
       const isIdentify = formElement?.dataset?.['identify'] === 'true';
       const dataParseInt = formElement?.dataset?.['parseInt'] === 'true';
       const dataParseFloat = formElement?.dataset?.['parseFloat'] === 'true';
-      if (dataParseInt) value = parseInt(value);
-      if (dataParseFloat) value = parseFloat(value as string);
       const isBothIdentifyAndTrack = formElement?.dataset?.['bothIdentifyAndTrack'] === 'true';
       const isTrack = formElement?.dataset?.['track'] === 'true';
       const isIgnored = formElement?.dataset?.['ignore'] === 'true';
       if (name && value && !isIgnored) {
+        if (dataParseInt) value = parseInt(value);
+        if (dataParseFloat) value = parseFloat(value as string);
         if (isIdentify || isBothIdentifyAndTrack) {
           if (Array.isArray(identifyProperties[name]))
             //if the property already exists as an array, push the new value

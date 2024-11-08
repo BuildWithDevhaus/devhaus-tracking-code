@@ -97,7 +97,9 @@
     <div class="container">
       <h1>Devhaus Tracking Code Test Page</h1>
 
-      <a href="#" data-event="Link Clicked" data-property-name1="link_text:innerHTML">Click Me</a>
+      <a href="#" data-event="Link Clicked" data-property-name1="link_text:innerHTML"
+        ><span>Click Me</span></a
+      >
 
       <h2>Form Submission</h2>
       <form id="myForm" data-event="Form Submitted">
@@ -196,6 +198,7 @@
           type="range"
           id="satisfaction"
           name="satisfaction"
+          data-parse-int="true"
           min="1"
           max="7"
           data-track="true"
