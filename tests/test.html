@@ -100,24 +100,39 @@
       <a href="#" data-event="Link Clicked" data-property-name1="link_text:innerHTML">Click Me</a>
 
       <h2>Form Submission</h2>
-      <form id="myForm">
-        <label for="email">Email:</label>
+      <form id="myForm" data-event="Form Submitted">
+        <label for="email">Email:<span style="color: red">*</span></label>
         <input
           type="email"
           id="email"
           name="email"
           data-identify="true"
+          required
           value="johnprice@activision.net"
         />
 
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName" data-identify="true" value="John" />
+        <label for="firstName">First Name:<span style="color: red">*</span></label>
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          data-identify="true"
+          value="John"
+          required
+        />
 
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName" data-identify="true" value="Price" />
+        <label for="lastName">Last Name:<span style="color: red">*</span></label>
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          data-identify="true"
+          value="Price"
+          required
+        />
 
         <label for="country">Country:</label>
-        <select id="country" name="country">
+        <select id="country" name="country" data-both-identify-and-track="true">
           <option value="us">United States</option>
           <option value="ca">Canada</option>
           <option value="uk">United Kingdom</option>
@@ -125,39 +140,71 @@
 
         <label>Favorite Colors (Checkboxes):</label>
         <div class="checkbox-group">
-          <input type="checkbox" id="color" name="favorite_colors" value="red" />
+          <input
+            type="checkbox"
+            id="color"
+            name="favorite_colors"
+            value="red"
+            data-track="true"
+            data-identify="true"
+          />
           <label for="color_red" style="color: red">Red</label>
-          <input type="checkbox" id="color" name="favorite_colors" value="green" />
+          <input
+            type="checkbox"
+            id="color"
+            name="favorite_colors"
+            value="green"
+            data-track="true"
+            data-identify="true"
+          />
           <label for="color_green" style="color: green">Green</label>
-          <input type="checkbox" id="color" name="favorite_colors" value="blue" />
+          <input
+            type="checkbox"
+            id="color"
+            name="favorite_colors"
+            value="blue"
+            data-track="true"
+            data-identify="true"
+          />
           <label for="color_blue" style="color: blue">Blue</label>
         </div>
 
         <label>Preferred Contact Method (Radio):</label>
         <div class="radio-group">
-          <input type="radio" id="contact" name="contact_method" value="email" />
+          <input
+            type="radio"
+            id="contact"
+            name="contact_method"
+            value="email"
+            data-track="true"
+            data-identify="true"
+          />
           <label for="contact_email">Email</label>
-          <input type="radio" id="contact" name="contact_method" value="phone" />
+          <input
+            type="radio"
+            id="contact"
+            name="contact_method"
+            value="phone"
+            data-track="true"
+            data-identify="true"
+          />
           <label for="contact_phone">Phone</label>
         </div>
 
         <label for="satisfaction">Satisfaction (1-7):</label>
-        <input type="range" id="satisfaction" name="satisfaction" min="1" max="7" />
+        <input
+          type="range"
+          id="satisfaction"
+          name="satisfaction"
+          min="1"
+          max="7"
+          data-track="true"
+        />
 
         <label for="message">Message (ignored):</label>
-        <textarea
-          id="message"
-          name="message"
-          data-ignore="true"
-          value="This is some pre-filled message"
-        ></textarea>
+        <textarea id="message" name="message" value="This is some pre-filled message"></textarea>
 
-        <input
-          type="submit"
-          value="Submit"
-          data-event="Example Form Submitted"
-          data-submit-button="true"
-        />
+        <input type="submit" value="Submit" data-submit-button="true" />
       </form>
 
       <h2>CMS/Repeated Items (Simulated)</h2>

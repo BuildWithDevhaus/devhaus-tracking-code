@@ -41,13 +41,18 @@ export default function nonBodyTagEvents(
       if (element.dataset?.['cms'] === 'true') {
         cmsElementEvent(element, properties, pageviewElements);
       }
-      triggerSegmentEvent(eventName, properties, isDev);
-
       if (Object.keys(identifyProperties).length > 0) {
         triggerSegmentIdentify(identifyProperties, isDev);
       }
+
+      triggerSegmentEvent(eventName, properties, isDev);
     };
-    element.addEventListener('click', clickEvent);
+    if (element.tagName === 'FORM')
+      element.addEventListener('submit', (e) => {
+        //e.preventDefault();
+        clickEvent();
+      });
+    else element.addEventListener('click', clickEvent);
     //element.addEventListener('auxclick', clickEvent); //disabled auxclick events
   }
 }
