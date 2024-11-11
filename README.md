@@ -28,7 +28,7 @@ The section below describes the process of installing and configuring the Devhau
 <script
   id="devhaus-tracking-code"
   defer
-  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.3.1/dist/index.js"
+  src="https://cdn.jsdelivr.net/gh/BuildWithDevhaus/devhaus-tracking-code@2.3.2/dist/index.js"
   segment-prod-write-key="YOUR_PRODUCTION_SOURCE_WRITE_KEY"
   segment-dev-write-key="YOUR_STAGING_SOURCE_WRITE_KEY"
 ></script>
@@ -84,7 +84,6 @@ Below are the analytics tools that you can use:
 - [Google Analytics 4 (GA4)](./docs/standalone_tools/ga4.md)
 - [FullStory](/docs/standalone_tools/fullstory.md)
 
-
 # Usage and How to Track Events inside Webflow with Devhaus Tracking Code
 
 You can read more about the usage and how to track events inside Webflow with Devhaus Tracking Code in the [Usage](./docs/usage.md) documentation.
@@ -96,7 +95,6 @@ You can read more about consent management in the [Consent Management](./docs/co
 # Local Development
 
 You can read more about the local development setup in the [Local Development](./docs/localDevelopmentProcess.md) documentation.
-
 
 ## License
 

@@ -48,7 +48,7 @@ export default function nonBodyTagEvents(
       triggerSegmentEvent(eventName, properties, isDev);
     };
     if (element.tagName === 'FORM')
-      element.addEventListener('submit', (e) => {
+      element.addEventListener('submit', () => {
         //e.preventDefault();
         clickEvent();
       });
