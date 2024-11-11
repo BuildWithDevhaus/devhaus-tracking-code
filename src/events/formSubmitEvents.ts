@@ -11,8 +11,12 @@ export default function formSubmitEvent(
   [...formElements].forEach((fe) => {
     const formElement = fe as HTMLInputElement;
     if (formElement !== element) {
-      const name = formElement?.name.toLowerCase() ?? formElement?.id.toLowerCase() ?? '';
-      //value should be handling all types of form inputs
+      const name =
+        formElement?.name.toLowerCase() !== '' || formElement?.name.toLowerCase() !== undefined
+          ? formElement?.name
+          : formElement?.id.toLowerCase() !== '' || formElement?.id.toLowerCase() !== undefined
+          ? formElement?.id
+          : undefined;
       let value: string | number | undefined;
       if (formElement?.type === 'checkbox' && !formElement.checked) value = undefined;
       else if (formElement?.type === 'radio' && !formElement.checked) value = undefined;
