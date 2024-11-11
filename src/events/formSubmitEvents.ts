@@ -11,7 +11,7 @@ export default function formSubmitEvent(
   [...formElements].forEach((fe) => {
     const formElement = fe as HTMLInputElement;
     if (formElement !== element) {
-      const name = formElement?.name.toLowerCase();
+      const name = formElement?.name.toLowerCase() ?? formElement?.id.toLowerCase() ?? '';
       //value should be handling all types of form inputs
       let value: string | number | undefined;
       if (formElement?.type === 'checkbox' && !formElement.checked) value = undefined;
