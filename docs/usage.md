@@ -352,7 +352,9 @@ analytics.track('Featured Product Clicked', {
 Add a `data-event` property to a `<form>` tag. This is your event name. Optionally, you can add `data-submit-button` Custom Attribute inside the submit button to force the Code Snippet to mark the submit button.
 The code snippet will detect which `<form>` this button belongs and pulls **all the form values inside.**
 
-Then, **Make sure you put an `name` inside every form fields that you want to track. This will later become your property name.** This is a super important step since you want
+Then, **Make sure you put an `name` inside every form fields that you want to track. This will later become your property name.** This is a super important step.
+
+Do note that you can also add `id` inside the form fields in cases where adding `name` is not possible. It will act as a fallback.
 
 **If you have a PII (Personally-Identifiable Information) data in your forms, you need to mark them as inside an Identify event.**. In order to mark your PII fields as identifiable:
 
