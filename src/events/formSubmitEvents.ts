@@ -12,10 +12,10 @@ export default function formSubmitEvent(
     const formElement = fe as HTMLInputElement;
     if (formElement !== element) {
       const name =
-        formElement?.name.toLowerCase() !== '' || formElement?.name.toLowerCase() !== undefined
-          ? formElement?.name
-          : formElement?.id.toLowerCase() !== '' || formElement?.id.toLowerCase() !== undefined
-          ? formElement?.id
+        formElement?.name.toLowerCase() !== '' && formElement?.name.toLowerCase()
+          ? formElement?.name.toLowerCase()
+          : formElement?.id.toLowerCase() !== '' && formElement?.id.toLowerCase()
+          ? formElement?.id.toLowerCase()
           : undefined;
       let value: string | number | undefined;
       if (formElement?.type === 'checkbox' && !formElement.checked) value = undefined;
