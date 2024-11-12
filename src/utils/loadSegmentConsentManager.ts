@@ -1,20 +1,21 @@
 import getCorrectWriteKey from './getCorrectWriteKey';
 
 export default function loadSegmentConsentManager(
-  prodWriteKey: string,
-  alwaysRequireConsent: 'true' | 'false' | 'eu' = 'eu',
+  prodWriteKey?: string,
+  alwaysRequireConsent: 'true' | 'false' | 'eu' = 'true',
   devWriteKey?: string,
   stagingDomain?: string,
-  productionDomain?: string
+  productionDomain?: string,
+  isDev = false
 ) {
-  if (alwaysRequireConsent === 'false') {
-    //check if there is any script tag that has src includes consent-manager.js
+  if (alwaysRequireConsent === 'false' && !prodWriteKey && !devWriteKey) {
     return;
   }
+
+  const intendedWriteKey = getCorrectWriteKey(prodWriteKey, devWriteKey, stagingDomain, isDev);
   window.consentManagerConfig = function (exports) {
     let inEU, React;
     try {
-      //somehow the exports returns undefined but somehow if I wrap it in a try block it works???
       // exports.preferences.onPreferencesSaved(function () {
       //   console.log('preferences saved');
       // });
@@ -47,13 +48,7 @@ export default function loadSegmentConsentManager(
 
       return {
         container: '#consent-manager',
-        writeKey: getCorrectWriteKey(
-          prodWriteKey,
-          prodWriteKey,
-          devWriteKey,
-          stagingDomain,
-          productionDomain
-        ),
+        writeKey: intendedWriteKey,
         bannerContent: bannerContent,
         bannerSubContent: bannerSubContent,
         preferencesDialogTitle: 'Website Data Collection Preferences',
@@ -83,6 +78,7 @@ export default function loadSegmentConsentManager(
     'https://unpkg.com/@segment/consent-manager@5.7.0/standalone/consent-manager.js';
   document.body.appendChild(consentManagerScript);
   const devhausTrackingCode = document.getElementById('devhaus-tracking-code');
+
   const includeBuiltInBanner =
     devhausTrackingCode?.getAttribute('include-built-in-banner') ?? 'false';
   if (includeBuiltInBanner === 'true') {

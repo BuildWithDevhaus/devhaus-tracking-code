@@ -2,11 +2,12 @@ import getCorrectWriteKey from './getCorrectWriteKey';
 import loadSegmentConsentManager from './loadSegmentConsentManager';
 
 export default function loadSegmentAnalytics(
-  prodWriteKey: string,
+  prodWriteKey?: string,
   enableConsentManager: 'true' | 'false' | 'eu' | null = 'true',
   devWriteKey?: string,
   stagingDomain?: string,
-  productionDomain?: string
+  productionDomain?: string,
+  isDev = false
 ) {
   if (enableConsentManager !== null) {
     loadSegmentConsentManager(
@@ -14,7 +15,8 @@ export default function loadSegmentAnalytics(
       enableConsentManager,
       devWriteKey,
       stagingDomain,
-      productionDomain
+      productionDomain,
+      isDev
     );
   }
   const analytics = (window.analytics = window.analytics ?? []);
@@ -66,10 +68,10 @@ export default function loadSegmentAnalytics(
         analytics._loadOptions = e;
       };
 
-      analytics._writeKey = getCorrectWriteKey(prodWriteKey, undefined, devWriteKey);
-      analytics.SNIPPET_VERSION = '4.15.3';
+      analytics._writeKey = getCorrectWriteKey(prodWriteKey, devWriteKey, stagingDomain, isDev);
+      analytics.SNIPPET_VERSION = '5.2.0';
       if (enableConsentManager === 'false')
-        analytics.load(getCorrectWriteKey(prodWriteKey, undefined, devWriteKey));
+        analytics.load(getCorrectWriteKey(prodWriteKey, devWriteKey, stagingDomain, isDev));
       analytics.page();
     }
 }

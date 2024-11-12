@@ -1,19 +1,13 @@
 import isDevEnvironment from './isDevEnvironment';
 
 export default function getCorrectWriteKey(
-  writeKey?: string,
   prodWriteKey?: string,
   devWriteKey?: string,
   stagingDomain?: string,
-  productionDomain?: string
+  isDev = false
 ) {
-  //prioritise prodWriteKey
-  if (isDevEnvironment(stagingDomain) && devWriteKey) {
+  if (isDevEnvironment(stagingDomain) && devWriteKey && isDev) {
     return devWriteKey;
   }
-  const isCorrectProductionDomain = window.location.hostname === productionDomain
-  if (prodWriteKey && (productionDomain ? isCorrectProductionDomain : true)) {
-    return prodWriteKey;
-  }
-  return writeKey;
+  return prodWriteKey;
 }
